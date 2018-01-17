@@ -1,0 +1,199 @@
+<div class="content-heading">
+  <span *ngIf="action=='create'">Neue Aktivität</span>
+  <span  *ngIf="action=='update'">Aktivität bearbeiten</span>
+  <small>Bitte geben Sie hier alle Informationen zur Aktivität an</small>
+</div>
+
+
+<form [formGroup]="creationFormGroup" class="form-validate panel" role="form" (submit)="onSubmit($seminar)">
+<tabset [justified]="true">
+  <tab>
+    <legend>Allgemeine Informationen</legend>
+    <ng-template tabHeading>Allgemeine Informationen</ng-template >
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="panel panel-default">
+            <div class="panel-heading">Allgemeine Informationen</div>
+            <div class="panel-body">
+              <div class="form-group">
+                <fieldset>
+                  <label class="col-lg-2 control-label">Titel</label>
+                  <div class="col-lg-10">
+                    <input class="form-control" type="text" name="seminar_title" formControlName="title" />
+                    <span class="help-block">Bitte geben Sie eine möglichst treffende Beschreibung ein.</span>
+                  </div>
+                </fieldset>
+                <fieldset>
+                    <label class="col-sm-2 control-label">Kategorie</label>
+                    <div class="col-sm-10">
+                      <select class="form-control" name="category" formControlName="category">
+                        <option value="">-</option>
+                        <option *ngFor="let cat of categories; let i = index" [ngValue]="cat">{{cat.get("name")}}</option>
+                      </select>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                  <label class="col-lg-2 control-label">Kurze Beschreibung</label>
+                  <div class="col-lg-10">
+                    <textarea class="form-control" formControlName="shortDescription" name="seminar_shortDesc" rows="5" placeholder="Bitte geben Sie eine kurze Beschreibung ein. Diese wird auf Übersichtsseiten angezeigt."></textarea>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <label class="col-lg-2 control-label">Ort</label>
+                  <div class="col-lg-10">
+                    <input class="form-control" type="text" name="seminar_title" formControlName="location" />
+                    <span class="help-block">Bitte Adresse eingeben</span>
+                  </div>
+                </fieldset>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-4">
+
+          <div class="panel b panel-transparent" *ngIf="sem">
+            <table class="table bb">
+              <tbody>
+              <tr>
+                <td><img class="img-responsive block-center" src="{{sem?.attributes.image}}" alt="" /></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">Zeiten</div>
+            <div class="panel-body">
+              <fieldset>
+                <label class="col-lg-3 control-label">Start</label>
+                <div class="col-lg-9">
+                  <owl-date-time formControlName="start"></owl-date-time>
+                </div>
+              </fieldset>
+              <fieldset>
+                <label class="col-lg-3 control-label">Ende</label>
+                <div class="col-lg-9">
+                  <owl-date-time formControlName="end"></owl-date-time>
+                </div>
+              </fieldset>
+              <fieldset>
+                <label class="col-lg-3 control-label">Anmeldeschluss</label>
+                <div class="col-lg-9">
+                  <owl-date-time formControlName="registrationEnd"></owl-date-time>
+                </div>
+              </fieldset>
+              <fieldset>
+                <label class="col-lg-3 control-label">Abgesagt</label>
+                <div class="col-lg-9">
+
+                  <owl-date-time formControlName="registrationEnd"></owl-date-time>
+                </div>
+              </fieldset>
+              <div class="checkbox c-checkbox">
+                <label>
+                  <input type="checkbox" checked="" formControlName="canceled"/>
+                  <span class="fa fa-times"></span>Abgesagt</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-lg-8">
+    <div class="panel panel-default">
+    <div class="panel-heading">Allgemeine Informatione</div>
+    <div class="panel-body">
+      <div class="form-group">
+        <fieldset>
+          <label class="col-lg-2 control-label">Bild</label>
+          <div class="col-lg-10">
+            <app-image-crop [image]="image" (imageCropped)="onImageCropped($event)"></app-image-crop>
+          </div>
+        </fieldset>
+      </div>
+
+
+      <div class="form-group">
+        <fieldset>
+          <label class="col-lg-2 control-label">Beschreibung</label>
+          <div class="col-lg-10">
+            <textarea class="form-control" type="text" formControlName="description" name="seminar_description" rows="10" placeholder="Bitte geben Sie eine detaillierte Beschreibung ein."></textarea>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+    </div>
+      </div>
+    </div>
+
+  </tab>
+
+  <!--<tab >
+    <ng-template tabHeading>Agenda</ng-template >
+    <div class="panel panel-default" *ngFor="let agenda of agendas; let i = index">
+        <div class="panel-heading">
+            <input class="form-control" id="text" type="text" placeholder="Titel" />
+        </div>
+        <div class="panel-body">
+          <fieldset>
+            <label class="col-sm-2 control-label">Startzeit</label>
+            <div class="col-sm-3">
+              <owl-date-time></owl-date-time>
+            </div>
+          </fieldset>
+          <fieldset>
+            <label class="col-sm-2 control-label">Endzeit</label>
+            <div class="col-sm-3">
+              <owl-date-time></owl-date-time>
+            </div>
+          </fieldset>
+          <fieldset>
+            <label class="col-sm-2 control-label">Anmeldeschluss</label>
+            <div class="col-sm-3">
+              <owl-date-time></owl-date-time>
+            </div>
+          </fieldset>
+          <fieldset>
+            <div class="col-md-12">
+              <textarea  class="form-control" rows="5" placeholder="Beschreibung"></textarea>
+            </div>
+          </fieldset>
+        </div>
+        <button class="btn btn-labeled btn-danger" type="button" (click)="onDeleteAgenda(i)">
+        <span class="btn-label"><i class="fa fa-times"></i>
+   </span>Eintrag löschen</button>
+    </div>
+    <button class="btn btn-labeled btn-info" type="button" (click)="onAddAgenda()">
+        <span class="btn-label"><i class="fa fa-plus"></i>
+   </span>Neuer Eintrag</button>
+  </tab>-->
+</tabset>
+
+  <div class="text-right mt-lg">
+    <button class="btn btn-warning" type="button">Abbrechen</button>
+    <button class="btn btn-success" type="button" type="submit" *ngIf="action=='create'">Speichern</button>
+
+    <button class="btn btn-success" type="button" type="submit" *ngIf="action=='update'">Aktualisieren</button>
+  </div>
+
+</form>
+
+
+Mehrere Bereiche Pro Zeitenabschnitt (Falls Kurse über mehrere Tage gehen)
+Mit einem + Können neue Zeilen hinzugefügt werden
+
+StartZeit + Endzeit + Titel + kurze Beschreibung
+
+
+Vielleicht dieser Datepicker: https://uxsolutions.github.io/bootstrap-datepicker/
+https://github.com/uxsolutions/bootstrap-datepicker
+
+
+oder der
+
+https://github.com/rd-dev-ukraine/angular-io-datepicker

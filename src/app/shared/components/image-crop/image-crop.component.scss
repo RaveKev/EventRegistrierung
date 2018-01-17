@@ -1,0 +1,13 @@
+.image-cropper-container {
+  max-width: 790px;
+  width: 100%;
+
+  .ng2-imgcrop{
+    >canvas{
+      width: 100%;
+    }
+  }
+
+}
+
+

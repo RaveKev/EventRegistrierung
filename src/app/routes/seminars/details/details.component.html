@@ -1,0 +1,101 @@
+<div class="content-heading">{{seminar?.attributes.title}}
+  <small>{{seminar?.attributes.shortDescription}}</small>
+
+</div>
+
+
+
+<div class="row">
+  <div class="col-lg-8">
+    <!-- Main panel-->
+    <div class="panel b">
+      <div class="panel-heading">
+        <div class="pull-right mt">
+          <div class="label label-danger" *ngIf="seminar?.attributes.canceled">Abgesagt</div>
+        </div>
+        <h4 class="mv">
+          <span>{{seminar?.attributes.title}}</span>
+        </h4>
+      </div>
+      <div class="panel-body bb bt">
+        <h4>Beschreibung</h4>
+        <p>
+          {{seminar?.attributes.description}}
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Right side -->
+  <div class="col-lg-4">
+    <!-- Aside panel-->
+
+    <!-- START button group-->
+    <div class="btn-group mb-sm abs-right " dropdown *ngIf="editable">
+      <button class="btn dropdown-toggle btn-primary" type="button" dropdownToggle>
+        Aktionen
+        <span class="caret"></span>
+      </button>
+      <ul *dropdownMenu class="dropdown-menu" role="menu">
+        <li>
+          <a href="#" (click)="doEditEvent()">Bearbeiten</a>
+        </li>
+        <li>
+          <a href="#0" (click)="doCanelEvent()">Absagen</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <a href="#" (click)="doDeleteEvent()">Löschen</a>
+        </li>
+      </ul>
+    </div>
+    <!-- END button group-->
+
+    <div class="panel b panel-transparent">
+      <table class="table bb">
+        <tbody>
+        <tr>
+          <td><img class="img-responsive block-center" src="{{seminar?.attributes.image}}" alt="" /></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel b">
+      <table class="table bb">
+        <tbody>
+        <tr>
+          <td>
+            <strong>Start</strong>
+          </td>
+          <td>{{seminar?.attributes.start | date: 'dd.MM.yyyy H:mm' }}</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Ende</strong>
+          </td>
+          <td>{{seminar?.attributes.end | date: 'dd.MM.yyyy H:mm' }}</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Teilnehmer Max.</strong>
+          </td>
+          <td>{{seminar?.attributes.maxParticipants}}</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Preis / Person</strong>
+          </td>
+          <td>{{seminar?.attributes.pricePerPErson}}</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Registrierungsende</strong>
+          </td>
+          <td>{{seminar?.attributes.registrationEnd | date: 'dd.MM.yyyy H:mm' }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

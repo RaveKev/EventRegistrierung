@@ -1,0 +1,37 @@
+<div class="container-md">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel b">
+                <div class="panel-heading bg-gray-lighter text-bold">Persönliche Einstellungen</div>
+                <div class="list-group">
+                    <a class="list-group-item" (click)="settingActive=1" [ngClass]="{'active': (settingActive == 1)}">Profil</a>
+                    <a class="list-group-item" (click)="settingActive=2" [ngClass]="{'active': (settingActive == 2)}">Sicherheit</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div *ngIf="settingActive == 1">
+                <div class="panel b">
+                    <div class="panel-heading bg-gray-lighter text-bold">Profil</div>
+                    <div class="panel-body">
+                        <app-profile-basic [profile]="profile"></app-profile-basic>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="settingActive == 2">
+                <div class="panel b">
+                    <div class="panel-heading bg-gray-lighter text-bold">Sicherheit</div>
+                    <div class="panel-body">
+                        <app-profile-password></app-profile-password>
+                    </div>
+                </div>
+                <div class="panel b">
+                    <div class="panel-heading bg-danger text-bold">Profil löschen</div>
+                    <div class="panel-body bt">
+                       <app-profile-delete></app-profile-delete>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
