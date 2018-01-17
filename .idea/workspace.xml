@@ -21,8 +21,8 @@
       <file leaf-file-name="ParseManager.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/models/ParseManager.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+            <state relative-caret-position="1649">
+              <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -31,8 +31,8 @@
       <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="15" lean-forward="false" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="15" />
+            <state relative-caret-position="76">
+              <caret line="23" column="4" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -122,8 +122,8 @@
       <find>patch</find>
       <find>engines</find>
       <find>2.3.3</find>
-      <find>error</find>
       <find>postinstal</find>
+      <find>error</find>
     </findStrings>
     <dirStrings>
       <dir>D:\_Entwicklung\112plus\angular2-seed\ng2angle\src</dir>
@@ -637,12 +637,12 @@
       <workItem from="1508747653429" duration="57096000" />
       <workItem from="1514969175208" duration="199000" />
       <workItem from="1514969399024" duration="4199000" />
-      <workItem from="1516130582903" duration="19656000" />
+      <workItem from="1516130582903" duration="21044000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="150150000" />
+    <option name="totallyTimeSpent" value="151538000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1112,16 +1112,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/models/ParseManager.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="117" column="0" lean-forward="false" selection-start-line="117" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+        <state relative-caret-position="1649">
+          <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="15" lean-forward="false" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="15" />
+        <state relative-caret-position="76">
+          <caret line="23" column="4" lean-forward="false" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
           <folding />
         </state>
       </provider>
