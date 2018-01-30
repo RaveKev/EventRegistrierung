@@ -78,17 +78,24 @@ export class ParseManager {
       seminar.description,
       seminar.category,
       seminar.start,
-      null,
+      seminar.end,
       seminar.registrationEnd,
       seminar.location,
       seminar.maxParticipants,
-      seminar.pricePerPerson,
+      seminar.pricePerSeat,
       seminar.canceled,
-      seminar.image
+      seminar.image,
+      seminar.organizer,
+      seminar.lead,
+      seminar.targetGroup,
+      seminar.preBookedSeats,
+      seminar.seats,
+      seminar.itemNumber
+
     );
   }
 
-  seminarCreateByAttributes(id: string, title: string, shortDescription: string, description: string, category: any, start: String, end: String, registrationEnd: String, location: string, maxParticipants: number, pricePerPerson: number, canceled: boolean, image: string){
+  seminarCreateByAttributes(id: string, title: string, shortDescription: string, description: string, category: any, start: String, end: String, registrationEnd: String, location: string, maxParticipants: number, pricePerSeat: number, canceled: boolean, image: string, organizer: any, lead:string, targetGroup:string, preBookedSeats:number, seats:number, itemNumber:string) {
 
     var Seminar = Parse.Object.extend("Seminar");
     var pSeminar = new Seminar();
@@ -101,11 +108,18 @@ export class ParseManager {
     pSeminar.set("end", end);
     pSeminar.set("location", location);
     pSeminar.set("registrationEnd", registrationEnd);
-    pSeminar.set("pricePerPerson", pricePerPerson);
+    pSeminar.set("pricePerSeat", pricePerSeat);
     pSeminar.set("canceled", canceled);
     pSeminar.set("maxParticipants", maxParticipants);
     pSeminar.set("creator", Parse.User.current());
     pSeminar.set("image", image);
+    pSeminar.set("organizer", organizer);
+    pSeminar.set("lead", lead);
+    pSeminar.set("targetGroup", targetGroup);
+    pSeminar.set("preBookedSeats", preBookedSeats);
+    pSeminar.set("seats", seats);
+    pSeminar.set("itemNumber", itemNumber);
+    //pSeminar.set("seatsOccupied", preBookedSeats);
 
     return pSeminar.save();
 
@@ -122,27 +136,21 @@ export class ParseManager {
 
   seminarsGet(){
     var query = new Parse.Query("Seminar");
-    query.equalTo('deleted', false);
     query.include("category");
+    query.include("category.name");
+    query.include("organizer");
+    query.equalTo('deleted', false);
     return query.find();
-
   }
 
   seminarGetById(id:string) {
     var query = new Parse.Query("Seminar");
     query.include("category");
+    query.include("category.name");
+    query.include("organizer");
     query.equalTo("objectId", id);
     query.equalTo('deleted', false);
-    console.log(query.find());
     return query.find();
-    // query.find({
-    //   success: function(seminar){
-    //     console.log("Getting finished: ");
-    //     console.log(seminar);
-    //     success(seminar);
-    //   }
-    // });
-
   }
 
 
@@ -150,13 +158,12 @@ export class ParseManager {
   categoriesGet(){
     var query = new Parse.Query("Category");
     return query.find();
-    // query.find({
-    //   success: function(categories) {
-    //     console.log("Getting categories finished: ");
-    //     console.log(categories);
-    //     success(categories);
-    //   }
-    // })
+  }
+
+
+  usersGet(){
+    var query = new Parse.Query("User");
+    return query.find();
   }
 
 }

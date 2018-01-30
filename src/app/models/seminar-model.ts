@@ -14,14 +14,22 @@ export interface Seminar{
   maxParticipants?: number,
   creator?: string,
   location?: string,
-  pricePerPerson?: number,
+  pricePerSeat?: number,
   canceled?: boolean,
-  image?: string
+  image?: string,
+  organizer?: any,
+  lead?: string,
+  targetGroup?: string,
+  preBookedSeats?: number,
+  seats?: number,
+  seatsBooked?: number,
+  seatsOccupied?: number,
+  itemNumber?: string
 
 }
 
 export function createSeminar(id?: string, title?:string, shortDescription?:string,description?:string,category?:any,start?:string,end?:string,registrationEnd?:boolean,maxParticipants?:number,creator?:string,location?:string,
-pricePerPerson?:number,canceled?:boolean,image?:string){
+                              pricePerSeat?:number,canceled?:boolean,image?:string, organizer?:any, lead?:string, targetGroup?:string, preBookedSeats?:number, seats?:number, seatsBooked?:number, seatsOccupied?:number, itemNumber?:string){
 
 }
 

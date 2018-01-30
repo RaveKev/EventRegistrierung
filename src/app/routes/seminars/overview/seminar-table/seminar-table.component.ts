@@ -8,7 +8,7 @@ import {Seminar} from "../../../../models/seminar-model";
 })
 export class SeminarTableComponent implements OnInit {
 
-  @Input() seminars: Seminar[];
+  @Input() seminars: any[];
   @Input() filterText = "";
   @Input() filterCategory = "";
   constructor() { }

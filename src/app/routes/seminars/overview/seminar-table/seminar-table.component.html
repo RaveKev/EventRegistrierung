@@ -13,7 +13,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let seminar of seminars | seminarFilter:filterText | categoryFilter:filterCategory">
+  <tr *ngFor="let seminar of seminars | seminarFilter:filterText | categoryFilter:filterCategory"  [routerLink]="['/seminars/details', seminar?.id]" >
     <td>
       <div class="checkbox c-checkbox">
         <label>
@@ -24,14 +24,15 @@
     </td>
     <td>
       <div class="media-box">
-        <span>{{seminar?.attributes.start | date: 'dd.MM.yyyy H:mm' }} - {{seminar?.attributes.edn | date: 'dd.MM.yyyy H:mm' }}</span>
+        <span>{{seminar?.attributes.start | date: 'dd.MM.yyyy H:mm' }} - {{seminar?.attributes.end | date: 'dd.MM.yyyy H:mm' }}</span>
+        <div class="pull-right badge p-sm bg-warning">{{seminar?.attributes.category?.attributes.name}}</div>
         <a class="pull-left" href="#">
           <img class="media-box-object img-responsive img-rounded thumb64" src="{{seminar?.attributes.image}}" alt="" />
         </a>
         <div class="media-box-body">
-          <div class="pull-right btn btn-info btn-sm"  [routerLink]="['/seminars/details', seminar?.id]">Öffnen</div>
+
           <h4 class="media-box-heading">{{seminar?.attributes.title}}</h4>
-          <small class="text-muted">{{seminar?.attributes.category}}</small>
+          <small class="text-muted">{{seminar?.attributes.location}}</small>
           <p>{{seminar?.attributes.shortDescription}}</p>
         </div>
       </div>

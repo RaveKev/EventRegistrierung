@@ -10,7 +10,7 @@ import {Seminar} from "../../../models/seminar-model";
 })
 export class OverviewComponent implements OnInit {
 
-  seminars : Seminar[];
+  seminars : any[];
   constructor(private logService:LogService, private parseManager: ParseManager ) { }
 
   ngOnInit() {

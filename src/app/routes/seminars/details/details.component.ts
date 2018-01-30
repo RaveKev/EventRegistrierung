@@ -29,7 +29,7 @@ export class DetailsComponent implements OnInit {
       var self = this;
       this.parseManager.seminarGetById(seminarId)
         .then(function success(seminarQuery){
-
+            console.log(seminarQuery);
           if(!seminarQuery[0]){
             self.router.navigate(['/seminars/overview']);
           }
