@@ -56,6 +56,10 @@ const user = {
     {
       text: 'Einstellungen',
       link: '/user/settings'
+    },
+    {
+      text: 'Buchungen',
+      link: '/booking/overview'
     }
   ]
 }

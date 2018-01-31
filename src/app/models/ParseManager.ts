@@ -166,4 +166,43 @@ export class ParseManager {
     return query.find();
   }
 
+  orderCreate(order: any, seminar: any){
+    var Order = Parse.Object.extend("Order");
+    var pOrder = new Order();
+    pOrder.set("seminar", seminar);
+    pOrder.set("orderer", Parse.User.current());
+    pOrder.setACL(new Parse.ACL(Parse.User.current()));
+    return pOrder.save();
+  }
+
+  ordersGet(){
+    var query = new Parse.Query("Order");
+    query.include("orderer");
+    query.include("seminar");
+    return query.find();
+  }
+
+  seatCreate(seat: any, order: any){
+    var Seat = Parse.Object.extend("Seat");
+    var pSeat = new Seat();
+    console.log("Creating Seat: ");
+    console.log(seat);
+    pSeat.set("firstName", seat.firstName);
+    pSeat.set("lastName", seat.lastName);
+    pSeat.set("birthDay", seat.birtday);
+    pSeat.set("email", seat.email);
+    pSeat.set("price", seat.price);
+    pSeat.set("order", order);
+    pSeat.setACL(new Parse.ACL(Parse.User.current()));
+
+    return pSeat.save();
+  }
+
+  seatsCreate(seats: any, order: any){
+    for(var seat in seats){
+      this.seatCreate(seat, order);
+    }
+  }
+
+
 }

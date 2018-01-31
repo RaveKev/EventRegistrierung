@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {LogService} from "../../../shared/services/log.service";
 import {ActivatedRoute, Router, Params} from "@angular/router";
 import {ParseManager} from "../../../models/ParseManager";
-import {FormGroup, FormBuilder, FormArray} from "@angular/forms";
+import {FormGroup, FormBuilder, FormArray, Validators, ValidatorFn, FormControl} from "@angular/forms";
+import { CustomValidators } from 'ng2-validation';
+import {OrderService} from "../../../shared/services/order.service";
+import {Seminar} from "../../../models/seminar-model";
 
 @Component({
   selector: 'app-start',
@@ -19,7 +22,14 @@ export class StartComponent implements OnInit {
 
   private sum = 0.00;
 
-  constructor(private logService:LogService, private fb: FormBuilder, private parseManager:ParseManager, private activatedRoute:ActivatedRoute, private router: Router ) { }
+  step1 = true;
+  step2 = false;
+  step3 = false;
+  step4 = false;
+  step5 = false;
+  step6 = false;
+
+  constructor(private logService:LogService, private fb: FormBuilder, private parseManager:ParseManager, private activatedRoute:ActivatedRoute, private router: Router, private orderService: OrderService ) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -31,6 +41,8 @@ export class StartComponent implements OnInit {
               self.router.navigate(['/seminars/overview']);
             }
             self.seminar = seminarQuery[0];
+            console.log("SEEEEEEEMINAR");
+            console.log(self.seminar);
 
             self.sum = self.seminar.attributes.pricePerSeat;
           },
@@ -44,6 +56,8 @@ export class StartComponent implements OnInit {
       'seats': this.fb.array([ this.buildSeats() ])
     });
 
+    console.log(this.bookingFormGroup);
+
 
   }
 
@@ -53,10 +67,10 @@ export class StartComponent implements OnInit {
 
   buildSeats(){
     return this.fb.group({
-      "firstName": "",
-      "lastName": "",
-      "birthday": "",
-      "email":""
+      "firstName": ["", Validators.required],
+      "lastName": ["", Validators.required],
+      "birthday": [""],
+      "email": [""]
     });
   }
 
@@ -66,13 +80,70 @@ export class StartComponent implements OnInit {
   }
 
   onRemoveSeat(index){
-    this.seats.removeAt(index);  
+    this.seats.removeAt(index);
     this.updateSeatsAmount();
   }
 
-  onSubmit(){
-    console.log("SUBMIT");
+
+
+  submitForm($ev) {
+   console.log("submit");
+
+    $ev.preventDefault();
+    for (let c in this.bookingFormGroup.controls) {
+      this.bookingFormGroup.controls[c].markAsTouched();
+    }
+    for (let s in this.bookingFormGroup.controls.seats['controls']) {
+      console.log(this.bookingFormGroup.controls.seats['controls'][s]);
+      for (let sc in this.bookingFormGroup.controls.seats['controls'][s].controls) {
+        this.bookingFormGroup.controls.seats['controls'][s].controls[sc].markAsTouched();
+      }
+    }
+
+    if (this.bookingFormGroup.valid) {
+
+      this.orderService.createOrder();
+      this.orderService.setSeminar(this.seminar);
+
+      for (let s in this.bookingFormGroup.controls.seats['controls']) {
+        console.log(this.bookingFormGroup.controls.seats['controls'][s]);
+
+        var seat = {
+          "firstName": this.bookingFormGroup.controls.seats['controls'][s]['controls'].firstName.value,
+          "lastName": this.bookingFormGroup.controls.seats['controls'][s]['controls'].lastName.value,
+          "birthday": this.bookingFormGroup.controls.seats['controls'][s]['controls'].birthday.value,
+          "email": this.bookingFormGroup.controls.seats['controls'][s]['controls'].email.value,
+          "price": this.seminar.attributes.pricePerSeat ,
+          "order": null
+        }
+        this.orderService.addSeat(seat);
+        console.log(this.orderService.seats);
+      }
+      console.log(this.orderService.seats);
+
+
+      var self = this;
+
+      self.parseManager.orderCreate(self.orderService.getOrder(), self.orderService.getSeminar())
+        .then(function (pOrder){
+          for(let se in self.orderService.seats){
+            console.log("doCreate");
+            console.log(self.orderService.seats[se]);
+            self.parseManager.seatCreate(self.orderService.seats[se], pOrder)
+              .then(function(){
+
+              }, function(error, pSeat){
+
+              });
+          }
+      }, function(error, pOrder){
+          console.log(error);
+        });
+
+
+    }
   }
+
 
   updateSeatsAmount(){
     this.sum = this.seminar.attributes.pricePerSeat * this.seats.length;

@@ -1,0 +1,47 @@
+
+<table class="table table-striped table-bordered table-hover">
+  <thead>
+  <tr>
+    <th checkAll>
+      <div class="checkbox c-checkbox" tooltip="Check All">
+        <label>
+          <input type="checkbox" />
+          <span class="fa fa-check"></span>
+        </label>
+      </div>
+    </th>
+    <th>Beschreibung</th>
+    <th>Preis</th>
+  </tr>
+  </thead>
+  <tbody>
+<tbody>
+<tr *ngFor="let order of orders">
+  <td>
+    <div class="checkbox c-checkbox">
+      <label>
+        <input type="checkbox" />
+        <span class="fa fa-check"></span>
+      </label>
+    </div>
+  </td>
+  <td>
+    <div class="media-box">
+      <span>{{order?.attributes.seminar?.attributes.start | date: 'dd.MM.yyyy H:mm' }} - {{order?.attributes.seminar?.attributes.end | date: 'dd.MM.yyyy H:mm' }}</span>
+      <div class="pull-right badge p-sm bg-warning">{{order?.attributes.seminar?.attributes.category?.attributes.name}}</div>
+      <a class="pull-left" href="#">
+        <img class="media-box-object img-responsive img-rounded thumb64" src="{{order?.attributes.seminar?.attributes.image}}" alt="" />
+      </a>
+      <div class="media-box-body">
+
+        <h4 class="media-box-heading">{{order?.attributes.seminar?.attributes.title}}</h4>
+        <small class="text-muted">{{order?.attributes.seminar?.attributes.location}}</small>
+        <p>{{order?.attributes.seminar?.attributes.shortDescription}}</p>
+      </div>
+    </div>
+  </td>
+  <td>
+    {{order?.attributes.price}}
+  </td>
+</tr>
+</tbody>

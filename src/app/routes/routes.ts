@@ -14,7 +14,7 @@ export const routes = [
         path: '',
         component: LayoutComponent,
         children: [
-          { path: '', redirectTo: 'home', pathMatch: 'full' },
+          { path: '', redirectTo: 'seminars/overview', pathMatch: 'full' },
           { path: 'home', loadChildren: './home/home.module#HomeModule' },
           { path: 'user', loadChildren: './user/user.module#UserModule'},
           { path: 'seminars', loadChildren: './seminars/seminars.module#SeminarsModule'},
