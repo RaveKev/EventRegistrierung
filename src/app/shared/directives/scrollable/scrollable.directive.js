@@ -7,19 +7,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var LogService = (function () {
-    function LogService() {
+var ScrollableDirective = (function () {
+    function ScrollableDirective(element) {
+        this.element = element;
+        this.defaultHeight = 250;
     }
-    LogService.prototype.log = function (message) {
-        console.log(message);
+    ScrollableDirective.prototype.ngOnInit = function () {
+        $(this.element.nativeElement).slimScroll({
+            height: (this.height || this.defaultHeight)
+        });
     };
-    LogService.prototype.getTime = function () {
-        var d = new Date();
-        return d.getDay() + "." + d.getMonth() + "." + d.getFullYear() + "-" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-    };
-    return LogService;
+    return ScrollableDirective;
 }());
-LogService = __decorate([
-    core_1.Injectable()
-], LogService);
-exports.LogService = LogService;
+__decorate([
+    core_1.Input()
+], ScrollableDirective.prototype, "height", void 0);
+ScrollableDirective = __decorate([
+    core_1.Directive({
+        selector: 'scrollable'
+    })
+], ScrollableDirective);
+exports.ScrollableDirective = ScrollableDirective;

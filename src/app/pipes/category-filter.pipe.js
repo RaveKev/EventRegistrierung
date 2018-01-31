@@ -7,26 +7,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var SeminarFilterPipe = (function () {
-    function SeminarFilterPipe() {
+var CategoryFilterPipe = (function () {
+    function CategoryFilterPipe() {
     }
-    SeminarFilterPipe.prototype.transform = function (events, term) {
+    CategoryFilterPipe.prototype.transform = function (events, term) {
         //if search is empty
         if (term === undefined)
+            return events;
+        if (term == '-1')
             return events;
         term = term.toLowerCase();
         if (events === undefined)
             return null;
+        console.log("CategoryFilter: " + term);
+        console.log();
         return events.filter(function (event) {
-            return (event.get("title") && event.get("title").toLowerCase().includes(term)) ||
-                (event.get("description") && event.get("description").toLowerCase().includes(term));
+            console.log(event);
+            console.log("event: " + event.attributes);
+            return (event.attributes.category && event.attributes.category.id && event.attributes.category.id.toLowerCase().includes(term)) ||
+                (event.attributes.category && event.attributes.category.attributes.name && event.attributes.category.attributes.name.toLowerCase().includes(term));
         });
     };
-    return SeminarFilterPipe;
+    return CategoryFilterPipe;
 }());
-SeminarFilterPipe = __decorate([
+CategoryFilterPipe = __decorate([
     core_1.Pipe({
-        name: 'seminarFilter'
+        name: 'categoryFilter'
     })
-], SeminarFilterPipe);
-exports.SeminarFilterPipe = SeminarFilterPipe;
+], CategoryFilterPipe);
+exports.CategoryFilterPipe = CategoryFilterPipe;

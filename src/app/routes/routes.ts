@@ -19,6 +19,7 @@ export const routes = [
           { path: 'user', loadChildren: './user/user.module#UserModule'},
           { path: 'seminars', loadChildren: './seminars/seminars.module#SeminarsModule'},
           { path: 'administration', loadChildren: './administration/administration.module#AdministrationModule'},
+          { path: 'booking', loadChildren: './booking/booking.module#BookingModule'},
         ]
     },
 

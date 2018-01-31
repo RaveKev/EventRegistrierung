@@ -1,0 +1,89 @@
+<div class="content-heading">Buchung für: {{seminar?.attributes.title}}
+  <small>{{seminar?.attributes.shortDescription}}</small>
+</div>
+
+
+<form [formGroup]="bookingFormGroup" class="form-validate panel form-horizontal" role="form" (submit)="onSubmit()">
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel b">
+      <div class="panel-heading bb">
+        <h4 class="panel-title">Buchung</h4>
+      </div>
+
+      <table class="table">
+        <tbody>
+        <tr>
+          <td>Preis / Person</td>
+          <td>
+            <div class="text-right text-bold">{{seminar?.attributes.pricePerSeat}}€</div>
+          </td>
+        </tr>
+        <tr>
+          <td>Teilnehmer</td>
+          <td>
+            <div class="text-right text-bold">{{seats.length}}</div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="panel-body">
+        <div class="clearfix">
+          <div class="pull-right text-right">
+            <div class="text-bold">{{sum}}€</div>
+            <div class="text-sm">EUR</div>
+          </div>
+          <div class="pull-left text-bold text-dark">Gesamt</div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <p>
+          <button class="btn btn-primary btn-block" type="button">EXPRESS CHECKOUT</button>
+        </p>
+        <small class="text-muted">* To use this method you must be registered first</small>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-9">
+    <div class="container-md">
+
+      <div formArrayName="seats" *ngFor="let seat of seats.controls; let i = index">
+        <div [formGroupName]="i">
+        <!--<div *ngFor="let seat of seats">-->
+          <fieldset>
+            <div class="form-group col-lg-6">
+              <label>Vorname*</label>
+              <input class="form-control" type="text" name="firstName" required="" formControlName="firstName" />
+            </div>
+            <div class="form-group col-lg-6">
+              <label>Nachname*</label>
+              <input class="form-control" type="text" name="lastName" required="" formControlName="lastName" />
+            </div>
+
+            <div class="form-group col-lg-6">
+              <label>Geburtsdatum*</label>
+              <input class="form-control" type="text" name="birthday" required="" formControlName="birthday" />
+            </div>
+            <div class="form-group col-lg-6">
+              <label>Email*</label>
+              <input class="form-control" type="text" name="email" required="" formControlName="email" />
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <button class="btn btn-labeled btn-success" type="button" (click)="onAddSeat()" >
+        <span class="btn-label"><i class="fa fa-plus"></i></span>
+        Neuer Teilnehmer
+      </button>
+
+
+    </div>
+
+  </div>
+
+  <br>Form: {{ bookingFormGroup.value | json }}
+</div>
+</form>
+

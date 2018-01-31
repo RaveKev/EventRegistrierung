@@ -7,19 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var LogService = (function () {
-    function LogService() {
+var UsersService = (function () {
+    function UsersService(logService, parseManager) {
+        this.logService = logService;
+        this.parseManager = parseManager;
     }
-    LogService.prototype.log = function (message) {
-        console.log(message);
+    UsersService.prototype.getUsers = function () {
+        return this.parseManager.usersGet();
     };
-    LogService.prototype.getTime = function () {
-        var d = new Date();
-        return d.getDay() + "." + d.getMonth() + "." + d.getFullYear() + "-" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-    };
-    return LogService;
+    return UsersService;
 }());
-LogService = __decorate([
+UsersService = __decorate([
     core_1.Injectable()
-], LogService);
-exports.LogService = LogService;
+], UsersService);
+exports.UsersService = UsersService;

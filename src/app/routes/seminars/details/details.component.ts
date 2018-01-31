@@ -52,7 +52,6 @@ export class DetailsComponent implements OnInit {
     if(this.seminar){
       this.router.navigate(['/seminars/create', this.seminar.id]);
     }
-
   }
 
   doCanelEvent(){
@@ -89,6 +88,12 @@ export class DetailsComponent implements OnInit {
         swal('Abgebrochen', 'Der Eintrag wird unverändert beibehalten', 'error');
       }
     });
+  }
+
+  doStartBooking(){
+    if(this.seminar){
+      this.router.navigate(['/booking/start', this.seminar.id]);
+    }
   }
 
 }
