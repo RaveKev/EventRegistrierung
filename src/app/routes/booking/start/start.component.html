@@ -3,7 +3,7 @@
 </div>
 
 
-<form [formGroup]="bookingFormGroup" class="form-validate panel form-horizontal" role="form" (submit)="onSubmit()">
+
 <div class="row">
   <div class="col-md-3">
     <div class="panel b">
@@ -47,8 +47,8 @@
 
 
   <div class="col-md-9">
-    <div class="container-md">
-
+    <div class="panel b">
+    <form [formGroup]="bookingFormGroup" class="form-validate panel" role="form" (submit)="onSubmit()">
       <div formArrayName="seats" *ngFor="let seat of seats.controls; let i = index">
         <div [formGroupName]="i">
         <!--<div *ngFor="let seat of seats">-->
@@ -70,7 +70,15 @@
               <label>Email*</label>
               <input class="form-control" type="text" name="email" required="" formControlName="email" />
             </div>
+            <div class="form-group col-lg-12">
+              <button class="btn btn-labeled btn-warn pull-right" type="button" (click)="onRemoveSeat(i)" >
+                <span class="btn-label"><i class="fa fa-minus"></i></span>
+                Teilnehmer entfernen
+              </button>
+            </div>
           </fieldset>
+
+
         </div>
       </div>
       <button class="btn btn-labeled btn-success" type="button" (click)="onAddSeat()" >
@@ -79,11 +87,11 @@
       </button>
 
 
+    </form>
     </div>
-
   </div>
 
   <br>Form: {{ bookingFormGroup.value | json }}
 </div>
-</form>
+
 

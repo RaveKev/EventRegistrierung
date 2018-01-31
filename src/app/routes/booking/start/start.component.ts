@@ -57,17 +57,12 @@ export class StartComponent implements OnInit {
   }
 
   onAddSeat(){
-/*    var tmpSeat ={
-      "firstName": "",
-      "lastName": "",
-      "birthday": "",
-      "email":""
-    };*/
-    //console.log(tmpSeat);
-
     this.seats.push(this.buildSeats());
     this.sum = this.seminar.attributes.pricePerSeat * this.seats.length;
+  }
 
+  onRemoveSeat(index){
+    this.seats.removeAt(index);
   }
 
   onSubmit(){
