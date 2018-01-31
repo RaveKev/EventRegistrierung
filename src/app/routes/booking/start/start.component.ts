@@ -31,6 +31,8 @@ export class StartComponent implements OnInit {
               self.router.navigate(['/seminars/overview']);
             }
             self.seminar = seminarQuery[0];
+
+            self.sum = self.seminar.attributes.pricePerSeat;
           },
           function error(seminarQuery, error){
             console.log(error);
@@ -41,6 +43,8 @@ export class StartComponent implements OnInit {
       'id': null,
       'seats': this.fb.array([ this.buildSeats() ])
     });
+
+
   }
 
   get seats() : FormArray{
@@ -58,15 +62,19 @@ export class StartComponent implements OnInit {
 
   onAddSeat(){
     this.seats.push(this.buildSeats());
-    this.sum = this.seminar.attributes.pricePerSeat * this.seats.length;
+    this.updateSeatsAmount();
   }
 
   onRemoveSeat(index){
-    this.seats.removeAt(index);
+    this.seats.removeAt(index);  
+    this.updateSeatsAmount();
   }
 
   onSubmit(){
     console.log("SUBMIT");
   }
 
+  updateSeatsAmount(){
+    this.sum = this.seminar.attributes.pricePerSeat * this.seats.length;
+  }
 }

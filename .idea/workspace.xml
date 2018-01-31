@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="161f084c-7f1b-4b13-82c0-37de665ba5e1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/routes/booking/start/start.component.html" afterPath="$PROJECT_DIR$/src/app/routes/booking/start/start.component.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app/routes/booking/start/start.component.ts" afterPath="$PROJECT_DIR$/src/app/routes/booking/start/start.component.ts" />
     </list>
@@ -47,8 +46,8 @@
       <file leaf-file-name="start.component.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/routes/booking/start/start.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="73" column="101" lean-forward="false" selection-start-line="73" selection-start-column="89" selection-end-line="73" selection-end-column="101" />
+            <state relative-caret-position="381">
+              <caret line="39" column="11" lean-forward="true" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -57,8 +56,8 @@
       <file leaf-file-name="create.component.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/routes/seminars/create/create.component.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="7" selection-end-column="124" />
+            <state relative-caret-position="3268">
+              <caret line="197" column="20" lean-forward="false" selection-start-line="197" selection-start-column="20" selection-end-line="197" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -97,8 +96,8 @@
       <file leaf-file-name="start.component.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app/routes/booking/start/start.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="268">
-              <caret line="54" column="16" lean-forward="true" selection-start-line="54" selection-start-column="16" selection-end-line="54" selection-end-column="16" />
+            <state relative-caret-position="302">
+              <caret line="68" column="33" lean-forward="false" selection-start-line="68" selection-start-column="33" selection-end-line="68" selection-end-column="33" />
               <folding>
                 <element signature="e#0#50#0" expanded="true" />
               </folding>
@@ -117,7 +116,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>title</find>
       <find>CategoriesService</find>
       <find>categoriesse</find>
       <find>categor</find>
@@ -145,8 +143,9 @@
       <find>priceperpe</find>
       <find>buch</find>
       <find>preis</find>
-      <find>ad</find>
       <find>ngfor</find>
+      <find>ad</find>
+      <find>sum</find>
     </findStrings>
     <dirStrings>
       <dir>D:\_Entwicklung\112plus\angular2-seed\ng2angle\src</dir>
@@ -944,12 +943,12 @@
       <workItem from="1514969175208" duration="199000" />
       <workItem from="1514969399024" duration="4199000" />
       <workItem from="1516130582903" duration="17620000" />
-      <workItem from="1517337320625" duration="22967000" />
+      <workItem from="1517337320625" duration="23453000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="171081000" />
+    <option name="totallyTimeSpent" value="171567000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1408,14 +1407,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/routes/seminars/create/create.component.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="7" selection-end-column="124" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/routes/booking/seatdetails/seatdetails.component.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -1442,18 +1433,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/routes/seminars/create/create.component.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3268">
+          <caret line="197" column="20" lean-forward="false" selection-start-line="197" selection-start-column="20" selection-end-line="197" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/routes/booking/start/start.component.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="73" column="101" lean-forward="false" selection-start-line="73" selection-start-column="89" selection-end-line="73" selection-end-column="101" />
+        <state relative-caret-position="381">
+          <caret line="39" column="11" lean-forward="true" selection-start-line="39" selection-start-column="11" selection-end-line="39" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/routes/booking/start/start.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="54" column="16" lean-forward="true" selection-start-line="54" selection-start-column="16" selection-end-line="54" selection-end-column="16" />
+        <state relative-caret-position="302">
+          <caret line="68" column="33" lean-forward="false" selection-start-line="68" selection-start-column="33" selection-end-line="68" selection-end-column="33" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
           </folding>
