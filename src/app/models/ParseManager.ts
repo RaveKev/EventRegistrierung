@@ -274,6 +274,7 @@ export class ParseManager {
     pSeat.set("email", seat.email);
     pSeat.set("price", seat.price);
     pSeat.set("order", order);
+    pSeat.set("seminar", seat.seminar);
     pSeat.setACL(new Parse.ACL(Parse.User.current()));
 
     return pSeat.save();

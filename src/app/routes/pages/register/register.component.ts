@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
 
     constructor(public settings: SettingsService, fb: FormBuilder, public router:Router, public parseManager:ParseManager) {
 
-        let password = new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9]{6,10}$')]));
+        let password = new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9@$!%*#?&]{6,20}$')]));
         let certainPassword = new FormControl('', CustomValidators.equalTo(password));
 
 
@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
             var self = this;
             this.parseManager.signup(value.email, value.passwordGroup.password, value.email, ()=>{
               console.log("User signed in through email");
-              this.router.navigate(['/Home']);
+              this.router.navigate(['/user/settings']);
             });
 
 

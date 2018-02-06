@@ -10,9 +10,12 @@ export class OrderService {
 
   constructor() { }
 
+
+
   createOrder(){
-    this.order = {
-    };
+    this.order = {};
+    this.seats = [];
+    this.seminar = null;
   }
 
   getOrder(){

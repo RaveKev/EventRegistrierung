@@ -38,9 +38,9 @@ export class LoginComponent implements OnInit {
 
       this.parseManager.logIn(value.email, value.password, function(){
         console.log("User logged in through email");
-        self.router.navigate(['/home']);
+        self.router.navigate(['/seminars/overview']);
       }, function(){
-        self.alertsService.addAlert("Wrong user / pass", "danger", false);
+        self.alertsService.addAlert("Falsche Kombination", "danger", false);
       });
 
     }

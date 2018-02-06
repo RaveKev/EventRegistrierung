@@ -10,7 +10,7 @@ import { ColorsService } from '../../../../shared/colors/colors.service';
 })
 export class SeminarTableComponent implements OnInit {
 
-  pieOptions3 = {
+  pieOptionDanger = {
     animate: {
       duration: 800,
       enabled: true
@@ -21,6 +21,32 @@ export class SeminarTableComponent implements OnInit {
     lineWidth: 15,
     lineCap: 'circle'
   };
+
+  pieOptionOK = {
+    animate: {
+      duration: 800,
+      enabled: true
+    },
+    barColor: this.colors.byName('success'),
+    trackColor: false,
+    scaleColor: this.colors.byName('gray'),
+    lineWidth: 15,
+    lineCap: 'circle'
+  };
+
+  pieOptionWarning = {
+    animate: {
+      duration: 800,
+      enabled: true
+    },
+    barColor: this.colors.byName('warning'),
+    trackColor: false,
+    scaleColor: this.colors.byName('gray'),
+    lineWidth: 15,
+    lineCap: 'circle'
+  };
+
+
 
   easyPiePercent3 = 34;
 
@@ -33,4 +59,22 @@ export class SeminarTableComponent implements OnInit {
   ngOnInit() {
   }
 
+  calculatePercentage(seminar: any){
+    var perc = ((seminar.attributes.seats-seminar.attributes.seatsOccupied) * 100) / seminar.attributes.seats;
+    return perc;
+  }
+
+  calculatePieOption(seminar: any){
+    var perc = ((seminar.attributes.seats-seminar.attributes.seatsOccupied) * 100) / seminar.attributes.seats;
+
+    if(perc > 60){
+      return this.pieOptionOK;
+    }
+    else if(perc > 30){
+      return this.pieOptionWarning;
+    }
+    else{
+      return this.pieOptionDanger;
+    }
+  }
 }

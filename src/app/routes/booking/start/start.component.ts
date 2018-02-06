@@ -114,7 +114,8 @@ export class StartComponent implements OnInit {
           "birthday": this.bookingFormGroup.controls.seats['controls'][s]['controls'].birthday.value,
           "email": this.bookingFormGroup.controls.seats['controls'][s]['controls'].email.value,
           "price": this.seminar.attributes.pricePerSeat ,
-          "order": null
+          "order": null,
+          "seminar": this.seminar,
         }
         this.orderService.addSeat(seat);
         console.log(this.orderService.seats);
@@ -124,16 +125,25 @@ export class StartComponent implements OnInit {
 
       var self = this;
 
+      console.log(self.orderService.getOrder());
+      console.log(self.orderService.getSeminar());
+      console.log(self.orderService.seats);
+
       self.parseManager.orderCreate(self.orderService.getOrder(), self.orderService.getSeminar())
         .then(function (pOrder){
+
+
           for(let se in self.orderService.seats){
             console.log("doCreate");
             console.log(self.orderService.seats[se]);
             self.parseManager.seatCreate(self.orderService.seats[se], pOrder)
               .then(function(){
+                console.log("Order Created!");
+
+                self.router.navigate(['/booking/overview']);
 
               }, function(error, pSeat){
-
+                console.log(error);
               });
           }
       }, function(error, pOrder){
