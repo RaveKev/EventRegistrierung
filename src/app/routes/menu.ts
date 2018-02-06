@@ -19,10 +19,10 @@ const seminars = {
       text: 'Übersicht',
       link: '/seminars/overview'
     },
-    {
+   /* {
       text: 'Kalender',
       link: '/seminars/calendar'
-    },
+    },*/
     {
       text: 'Neu',
       link: '/seminars/create'

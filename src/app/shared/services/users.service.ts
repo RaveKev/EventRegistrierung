@@ -5,7 +5,7 @@ import {LogService} from "./log.service";
 @Injectable()
 export class UsersService {
 
-  constructor(private logService: LogService, private parseManager: ParseManager) {
+  constructor(public logService: LogService, public parseManager: ParseManager) {
   }
 
   getUsers() {

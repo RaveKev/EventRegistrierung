@@ -6,11 +6,11 @@ import {Category} from "../../models/category-model";
 @Injectable()
 export class CategoriesService {
 
-  private categories = [];
+  public categories = [];
 
   categoriesLoaded = new EventEmitter<any>();
 
-  constructor(private logService: LogService, private parseManager: ParseManager) {
+  constructor(public logService: LogService, public parseManager: ParseManager) {
     this.fetchCategoriesFromServer();
   }
 

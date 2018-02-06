@@ -30,6 +30,11 @@ export class ParseManager {
     return user;
   }
 
+  isLoggedIn(){
+    var user = Parse.User.current();
+    return user != null;
+  }
+
   logIn(username: String, password: String, success: ()=> void, error: ()=>void)
   {
     Parse.User.logIn(username, password).then(function(){
@@ -37,6 +42,10 @@ export class ParseManager {
     },function(e){
       error();
     });
+  }
+
+  logOut(){
+    return Parse.User.logOut();
   }
 
   signup(username: String, password: String, email: String, success: ()=>void)
@@ -55,6 +64,17 @@ export class ParseManager {
     });
   }
 
+  passwordReset(email: string){
+    Parse.User.requestPasswordReset(email, {
+      success: function() {
+        console.log("PasswortReset gesendet")
+      },
+      error: function(error) {
+        alert("Error: " + error.code + " " + error.message);
+      }
+    });
+  }
+
 
   profileGetByUserId(userId: string){
     console.log("userId: " + userId);
@@ -65,8 +85,48 @@ export class ParseManager {
     return qry;
   }
 
+  profileGetForCurrentUser(){
+    console.log("profileGetForCurrentUser");
+    var user = Parse.User.current();
+    console.log(user);
+    var query = new Parse.Query("Profile");
+    query.equalTo("user", user);
+    var qry = query.first();
+    console.log(qry);
+    return qry;
+  }
 
-  updateProfile(profile: any){
+
+
+  updateProfile(prof: any) {
+    console.log("updateProfile");
+    console.log(prof);
+    console.log(prof.id);
+
+    var Profile = Parse.Object.extend("Profile");
+    var pProfile = new Profile();
+    var usr = this.currentUser();
+
+    pProfile.set("id", prof.id);
+    pProfile.set("salutation", prof.salutation);
+    pProfile.set("firstName", prof.firstName);
+    pProfile.set("lastName", prof.lastName);
+    pProfile.set("city", prof.city);
+    pProfile.set("url", prof.url);
+    pProfile.set("company", prof.company);
+    pProfile.set("user", usr);
+
+    var ret = pProfile.save();
+
+    console.log("prof.image");
+    console.log(prof.image);
+    if (prof.image != null && prof.image != undefined) {
+      usr.set("picture", prof.image);
+    }
+    usr.set("profile", pProfile);
+    usr.save();
+
+    return ret;
 
   }
 
@@ -90,12 +150,13 @@ export class ParseManager {
       seminar.targetGroup,
       seminar.preBookedSeats,
       seminar.seats,
-      seminar.itemNumber
+      seminar.itemNumber,
+      seminar.deleted,
 
     );
   }
 
-  seminarCreateByAttributes(id: string, title: string, shortDescription: string, description: string, category: any, start: String, end: String, registrationEnd: String, location: string, maxParticipants: number, pricePerSeat: number, canceled: boolean, image: string, organizer: any, lead:string, targetGroup:string, preBookedSeats:number, seats:number, itemNumber:string) {
+  seminarCreateByAttributes(id: string, title: string, shortDescription: string, description: string, category: any, start: String, end: String, registrationEnd: String, location: string, maxParticipants: number, pricePerSeat: number, canceled: boolean, image: string, organizer: any, lead:string, targetGroup:string, preBookedSeats:number, seats:number, itemNumber:string, deleted:boolean) {
 
     var Seminar = Parse.Object.extend("Seminar");
     var pSeminar = new Seminar();
@@ -119,6 +180,7 @@ export class ParseManager {
     pSeminar.set("preBookedSeats", preBookedSeats);
     pSeminar.set("seats", seats);
     pSeminar.set("itemNumber", itemNumber);
+    pSeminar.set("deleted", deleted);
     //pSeminar.set("seatsOccupied", preBookedSeats);
 
     return pSeminar.save();
@@ -134,12 +196,31 @@ export class ParseManager {
     return pSeminar.save();
   }
 
-  seminarsGet(){
+  seminarCancel(id: string){
+    var Seminar = Parse.Object.extend("Seminar");
+    var pSeminar = new Seminar();
+    pSeminar.set("id", id);
+    pSeminar.set("canceled", true);
+
+    return pSeminar.save();
+  }
+
+  seminarsGetActive(){
     var query = new Parse.Query("Seminar");
     query.include("category");
     query.include("category.name");
     query.include("organizer");
     query.equalTo('deleted', false);
+    query.equalTo('canceled', false);
+    return query.find();
+  }
+
+
+  seminarsGetAll(){
+    var query = new Parse.Query("Seminar");
+    query.include("category");
+    query.include("category.name");
+    query.include("organizer");
     return query.find();
   }
 

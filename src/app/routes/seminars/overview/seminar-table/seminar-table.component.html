@@ -10,6 +10,9 @@
       </div>
     </th>
     <th>Description</th>
+    <th>
+      Plätze
+    </th>
   </tr>
   </thead>
   <tbody>
@@ -34,6 +37,13 @@
           <h4 class="media-box-heading">{{seminar?.attributes.title}}</h4>
           <small class="text-muted">{{seminar?.attributes.location}}</small>
           <p>{{seminar?.attributes.shortDescription}}</p>
+        </div>
+      </div>
+    </td>
+    <td>
+      <div class="panel-body text-center">
+        <div class="easypie-chart" easypiechart [options]="pieOptions3" [percent]="easyPiePercent3">
+          <span>{{easyPiePercent3}}</span>
         </div>
       </div>
     </td>

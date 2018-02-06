@@ -14,10 +14,10 @@ const swal = require('sweetalert');
 })
 export class DetailsComponent implements OnInit {
 
-  private seminar : any;
-  private editable = false;
+  public seminar : any;
+  public editable = false;
 
-  constructor(private logService:LogService, private parseManager:ParseManager, private activatedRoute:ActivatedRoute, private router: Router ) {
+  constructor(public logService:LogService, public parseManager:ParseManager, public activatedRoute:ActivatedRoute, public router: Router ) {
 
 
   }
@@ -55,10 +55,40 @@ export class DetailsComponent implements OnInit {
   }
 
   doCanelEvent(){
+    var self = this;
+    swal({
+      title: 'Sind Sie sicher?',
+      text: 'Mächten Sie diesen Eintrag wirklich absagen?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#DD6B55',
+      confirmButtonText: 'Ja',
+      cancelButtonText: 'Nein',
+      closeOnConfirm: false,
+      closeOnCancel: false
+    }, (isConfirm) => {
+      if (isConfirm) {
+        this.parseManager.seminarCancel(this.seminar.id)
+          .then(
+            function success(seminarQuery){
+              swal({title: 'Abgesagt!', text: 'Der Eintrag wurde abgesagt', type: 'success'}, (blubb) => { self.router.navigate(["/seminars/overview"]); });
+            },
+            function error(error){
+              swal('Fehlgeschlagen', error.message, 'error');
+            }
+          ).catch(function(error){
+          console.log(error);
 
+        });
+
+      } else {
+        swal('Abgebrochen', 'Der Eintrag wird unverändert beibehalten', 'error');
+      }
+    });
   }
 
   doDeleteEvent(){
+    var self = this;
     swal({
       title: 'Sind Sie sicher?',
       text: 'Mächten Sie diesen Eintrag wirklich löschen?',
@@ -74,7 +104,7 @@ export class DetailsComponent implements OnInit {
         this.parseManager.seminarDelete(this.seminar.id)
           .then(
             function success(seminarQuery){
-              swal('Gelöscht!', 'Der Eintrag wurde gelöscht', 'success');
+              swal({title: 'Gelöscht!', text: 'Der Eintrag wurde gelöscht', type: 'success'}, (blubb) => { self.router.navigate(["/seminars/overview"]); });
             },
             function error(error){
               swal('Fehlgeschlagen', error.message, 'error');

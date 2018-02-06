@@ -24,12 +24,13 @@ export interface Seminar{
   seats?: number,
   seatsBooked?: number,
   seatsOccupied?: number,
-  itemNumber?: string
+  itemNumber?: string,
+  deleted?: boolean
 
 }
 
 export function createSeminar(id?: string, title?:string, shortDescription?:string,description?:string,category?:any,start?:string,end?:string,registrationEnd?:boolean,maxParticipants?:number,creator?:string,location?:string,
-                              pricePerSeat?:number,canceled?:boolean,image?:string, organizer?:any, lead?:string, targetGroup?:string, preBookedSeats?:number, seats?:number, seatsBooked?:number, seatsOccupied?:number, itemNumber?:string){
+                              pricePerSeat?:number,canceled?:boolean,image?:string, organizer?:any, lead?:string, targetGroup?:string, preBookedSeats?:number, seats?:number, seatsBooked?:number, seatsOccupied?:number, itemNumber?:string, deleted?:boolean){
 
 }
 

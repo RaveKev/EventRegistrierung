@@ -16,11 +16,11 @@ export class StartComponent implements OnInit {
 
   bookingFormGroup: FormGroup;
 
-  private seminar : any;
+  public seminar : any;
 
-  private order: any;
+  public order: any;
 
-  private sum = 0.00;
+  public sum = 0.00;
 
   step1 = true;
   step2 = false;
@@ -29,7 +29,7 @@ export class StartComponent implements OnInit {
   step5 = false;
   step6 = false;
 
-  constructor(private logService:LogService, private fb: FormBuilder, private parseManager:ParseManager, private activatedRoute:ActivatedRoute, private router: Router, private orderService: OrderService ) { }
+  constructor(public logService:LogService, public fb: FormBuilder, public parseManager:ParseManager, public activatedRoute:ActivatedRoute, public router: Router, public orderService: OrderService ) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params: Params) => {

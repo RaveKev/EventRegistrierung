@@ -6,7 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import {ParseManager} from "../../../models/ParseManager";
 import {CategoriesService} from "../../../shared/services/categories.service";
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {UsersService} from "../../../shared/services/users.service";
 
 @Component({
@@ -28,7 +28,7 @@ export class CreateComponent implements OnInit {
 
   public input1Moment: any;
 
-  constructor(private logService:LogService, private fb: FormBuilder, private parseManager: ParseManager, private categoriesService: CategoriesService, private usersService: UsersService, private activatedRoute:ActivatedRoute) {
+  constructor(public logService:LogService, public fb: FormBuilder, public parseManager: ParseManager, public categoriesService: CategoriesService, public usersService: UsersService, public activatedRoute:ActivatedRoute, public router:Router) {
     var self = this;
     /*this.parseManager.categoriesGet((cats) => {
         self.categories = cats;
@@ -111,7 +111,6 @@ export class CreateComponent implements OnInit {
       'category': [null],
       'start': [null],
       'end': [null],
-      'canceled': [null],
       'location': [null],
       'pricePerSeat': [null],
       'registrationEnd': [null],
@@ -121,7 +120,9 @@ export class CreateComponent implements OnInit {
       'seats': [null, Validators.pattern('^[0-9]+$')],
       'lead': [null],
       'targetGroup': [null],
-      'preBookedSeats': [null, Validators.pattern('^[0-9]+$')]
+      'preBookedSeats': [null, Validators.pattern('^[0-9]+$')],
+      'canceled': [false],
+      'deleted': [false]
 
     });
 
@@ -137,13 +138,14 @@ export class CreateComponent implements OnInit {
     if (this.creationFormGroup.valid) {
       var fields = this.creationFormGroup.value;
       this.logService.log("Form is vail!");
-      console.log(fields.title);
-      console.log(fields);
 
       this.parseManager.seminarCreate(fields)
-        .then(function (seminar){
+        .then(function success(seminar){
           self.logService.log("Erstellt!");
-        }
+            self.router.navigate(["/seminars/overview"]);
+        }, function error(error, seminar){
+          self.logService.log(error);
+          }
         );
 
     }

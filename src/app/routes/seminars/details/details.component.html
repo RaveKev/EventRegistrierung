@@ -19,7 +19,7 @@
       </div>
       <div class="panel-body bb bt">
         <h4>Beschreibung</h4>
-        <p>
+        <p style="white-space: pre-wrap">
           {{seminar?.attributes.description}}
         </p>
       </div>
@@ -100,7 +100,7 @@
           <a href="#" (click)="doEditEvent()">Bearbeiten</a>
         </li>
         <li>
-          <a href="#0" (click)="doCanelEvent()">Absagen</a>
+          <a href="#" (click)="doCanelEvent()">Absagen</a>
         </li>
         <li class="divider"></li>
         <li>
@@ -127,7 +127,7 @@
         <div class="panel-body">
           <ul class="list-inline mv">
             <li>
-              <div class="badge p-sm bg-warning">{{seminar?.attributes.category.attributes.name}}</div>
+              <div class="badge p-sm bg-warning">{{seminar?.attributes.category?.attributes.name}}</div>
             </li>
           </ul>
         </div>
@@ -164,6 +164,7 @@
           </td>
           <td>{{seminar?.attributes.registrationEnd | date: 'dd.MM.yyyy H:mm' }}</td>
         </tr>
+
       </table>
     </div>
 

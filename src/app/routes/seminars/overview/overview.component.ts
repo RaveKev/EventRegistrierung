@@ -47,7 +47,7 @@ export class OverviewComponent implements OnInit {
 
     });
 
-    this.parseManager.seminarsGet()
+    this.parseManager.seminarsGetActive( )
       .then(function success(seminars){
         self.seminars = seminars;
         console.log("SEMINARS");

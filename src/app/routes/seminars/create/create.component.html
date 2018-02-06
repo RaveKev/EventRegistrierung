@@ -5,7 +5,7 @@
 </div>
 
 
-<form [formGroup]="creationFormGroup" class="form-validate panel form-horizontal" role="form" (submit)="onSubmit($seminar)">
+<form [formGroup]="creationFormGroup" class="form-validate panel form-horizontal" role="form" (submit)="onSubmit(sem)">
 <tabset [justified]="true">
   <tab>
     <legend>Allgemeine Informationen</legend>
@@ -61,7 +61,7 @@
                 <fieldset>
                   <label class="col-lg-2 control-label">Max. Teilnehmer</label>
                   <div class="col-lg-3">
-                    <input class="form-control" type="text" name="seats" formControlName="seats" />
+                    <input class="form-control" type="number" name="seats" formControlName="seats" />
                     <span class="text-danger" *ngIf="creationFormGroup.controls['seats'].hasError('pattern') && (creationFormGroup.controls['seats'].dirty || creationFormGroup.controls['seats'].touched)">Bitte nur Zahlen eingeben</span>
                   </div>
                   <div class="col-lg-1"></div>

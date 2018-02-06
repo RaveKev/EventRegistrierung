@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   valForm: FormGroup;
 
   constructor(public settings: SettingsService, fb: FormBuilder, public parseManager: ParseManager, public router: Router, public alertsService: AlertsService) {
-
+    this.parseManager.logOut();
     this.valForm = fb.group({
       'email': [null, Validators.compose([Validators.required, CustomValidators.email])],
       'password': [null, Validators.required]

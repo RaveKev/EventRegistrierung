@@ -11,6 +11,7 @@ export class CalendarElementComponent implements OnInit, AfterViewInit {
 
   calendarOptions: any = {
     // isRTL: true,
+    locale: 'de',
     header: {
       left: 'prev,next today',
       center: 'title',
@@ -21,10 +22,10 @@ export class CalendarElementComponent implements OnInit, AfterViewInit {
       next: ' fa fa-caret-right'
     },
     buttonText: {
-      today: 'today',
-      month: 'month',
-      week: 'week',
-      day: 'day'
+      today: 'heute',
+      month: 'monat',
+      week: 'woche',
+      day: 'tag'
     },
     editable: true,
     droppable: true,
