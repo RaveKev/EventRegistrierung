@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {LogService} from "../../../shared/services/log.service";
 import {Seminar} from "../../../models/seminar-model";
 
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {FormGroup, FormBuilder, Validators, FormArray} from '@angular/forms';
 
 import {ParseManager} from "../../../models/ParseManager";
 import {CategoriesService} from "../../../shared/services/categories.service";
@@ -23,6 +23,9 @@ export class CreateComponent implements OnInit {
   image: any;
   seminarId : any;
   organizers: any[];
+
+  public customQuestionsArray = [];
+
 
   action = "create";
 
@@ -122,8 +125,8 @@ export class CreateComponent implements OnInit {
       'targetGroup': [null],
       'preBookedSeats': [null, Validators.pattern('^[0-9]+$')],
       'canceled': [false],
-      'deleted': [false]
-
+      'deleted': [false],
+      'customQuestions': this.fb.array([ this.buildCustomQuestion() ])
     });
 
 
@@ -134,14 +137,53 @@ export class CreateComponent implements OnInit {
     //$ev.preventDefault();
     var self = this;
     self.logService.log("Test");
+
+    for (let c in this.creationFormGroup.controls) {
+      this.creationFormGroup.controls[c].markAsTouched();
+    }
+    for (let s in this.creationFormGroup.controls.customQuestions['controls']) {
+      console.log(this.creationFormGroup.controls.customQuestions['controls'][s]);
+      for (let sc in this.creationFormGroup.controls.customQuestions['controls'][s].controls) {
+        this.creationFormGroup.controls.customQuestions['controls'][s].controls[sc].markAsTouched();
+      }
+    }
+
     console.log(this.creationFormGroup);
     if (this.creationFormGroup.valid) {
       var fields = this.creationFormGroup.value;
       this.logService.log("Form is vail!");
 
+
+      for (let s in this.creationFormGroup.controls.customQuestions['controls']) {
+        console.log("im For");
+        console.log(this.creationFormGroup.controls.customQuestions['controls'][s]);
+
+        var customQ = {
+          "title": this.creationFormGroup.controls.customQuestions['controls'][s]['controls'].questionTitle.value,
+          "text": this.creationFormGroup.controls.customQuestions['controls'][s]['controls'].questionText.value,
+          "type": this.creationFormGroup.controls.customQuestions['controls'][s]['controls'].type.value,
+          "required": this.creationFormGroup.controls.customQuestions['controls'][s]['controls'].required.value
+        }
+        console.log(customQ);
+        this.customQuestionsArray.push(customQ);
+      }
+
+
       this.parseManager.seminarCreate(fields)
         .then(function success(seminar){
           self.logService.log("Erstellt!");
+
+            for(let cq in self.customQuestionsArray){
+              self.parseManager.customQuestionCreate(self.customQuestionsArray[cq], seminar)
+                .then(function(){
+                  console.log("Custom Question Created!");
+                }, function(error, pSeat){
+                  console.log(error);
+                });
+            }
+
+
+
             self.router.navigate(["/seminars/overview"]);
         }, function error(error, seminar){
           self.logService.log(error);
@@ -149,7 +191,35 @@ export class CreateComponent implements OnInit {
         );
 
     }
+    else{
+      self.logService.log("Form is Invalid!");
+    }
   }
 
+
+  get customQuestions() : FormArray{
+    return <FormArray>this.creationFormGroup.get("customQuestions");
+  }
+
+  buildCustomQuestion(){
+    return this.fb.group({
+      "questionTitle": ["", Validators.required],
+      "questionText": ["", Validators.required],
+      "required": [false],
+      "type": ["", Validators.required]
+    });
+  }
+
+  onAddCustomQuestion(){
+    this.customQuestions.push(this.buildCustomQuestion());
+  }
+
+  onRemoveCustomQuestion(index){
+    this.customQuestions.removeAt(index);
+  }
+
+  doValidateField(field){
+    return field.hasError('required') && (field.dirty || field.touched);
+  }
 
 }

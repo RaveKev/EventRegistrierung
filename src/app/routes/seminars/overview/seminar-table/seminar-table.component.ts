@@ -12,7 +12,7 @@ export class SeminarTableComponent implements OnInit {
 
   pieOptionDanger = {
     animate: {
-      duration: 800,
+      duration: 1500,
       enabled: true
     },
     barColor: this.colors.byName('danger'),
@@ -24,7 +24,7 @@ export class SeminarTableComponent implements OnInit {
 
   pieOptionOK = {
     animate: {
-      duration: 800,
+      duration: 1500,
       enabled: true
     },
     barColor: this.colors.byName('success'),
@@ -36,7 +36,7 @@ export class SeminarTableComponent implements OnInit {
 
   pieOptionWarning = {
     animate: {
-      duration: 800,
+      duration: 1500,
       enabled: true
     },
     barColor: this.colors.byName('warning'),

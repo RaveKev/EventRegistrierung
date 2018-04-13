@@ -19,7 +19,8 @@
                 <fieldset>
                   <label class="col-lg-2 control-label">Titel</label>
                   <div class="col-lg-10">
-                    <input class="form-control" type="text" name="seminar_title" formControlName="title" />
+                    <input class="form-control" type="text" formControlName="title" name="title" />
+                    <span class="text-danger" *ngIf="doValidateField(creationFormGroup.get('title'))">Bitte einen Titel eingeben</span>
                     <span class="help-block">Bitte geben Sie eine möglichst treffende Beschreibung ein.</span>
                   </div>
                 </fieldset>
@@ -30,20 +31,23 @@
                         <option value="">-</option>
                         <option *ngFor="let cat of categories; let i = index" [ngValue]="cat">{{cat.get("name")}}</option>
                       </select>
+                      <span class="text-danger" *ngIf="doValidateField(creationFormGroup.get('category'))">Bitte eine Kategorie wählen</span>
                     </div>
                 </fieldset>
 
                 <fieldset>
                   <label class="col-lg-2 control-label">Kurze Beschreibung</label>
                   <div class="col-lg-10">
-                    <textarea class="form-control" formControlName="shortDescription" name="seminar_shortDesc" rows="5" placeholder="Bitte geben Sie eine kurze Beschreibung ein. Diese wird auf Übersichtsseiten angezeigt."></textarea>
+                    <textarea class="form-control" formControlName="shortDescription" name="shortDesc" rows="5" placeholder="Bitte geben Sie eine kurze Beschreibung ein. Diese wird auf Übersichtsseiten angezeigt."></textarea>
+                    <span class="text-danger" *ngIf="doValidateField(creationFormGroup.get('shortDescription'))">Bitte eine Beschreibung eingeben</span>
                   </div>
                 </fieldset>
 
                 <fieldset>
                   <label class="col-lg-2 control-label">Ort</label>
                   <div class="col-lg-10">
-                    <input class="form-control" type="text" name="seminar_title" formControlName="location" />
+                    <input class="form-control" type="text" name="location" formControlName="location" />
+                    <span class="text-danger" *ngIf="doValidateField(creationFormGroup.get('location'))">Bitte eine Adresse eingeben</span>
                     <span class="help-block">Bitte Adresse eingeben</span>
                   </div>
                 </fieldset>
@@ -55,6 +59,7 @@
                       <option value="">-</option>
                       <option *ngFor="let org of organizers; let i = index" [ngValue]="org">{{org.get("displayName")}}</option>
                     </select>
+                    <span class="text-danger" *ngIf="doValidateField(creationFormGroup.get('organizer'))">Bitte einen Veranstalter wählen.</span>
                   </div>
                 </fieldset>
 
@@ -97,18 +102,22 @@
                 <label class="col-lg-3 control-label">Start</label>
                 <div class="col-lg-9">
                   <owl-date-time formControlName="start"></owl-date-time>
+
+                  <span class="text-danger" *ngIf="doValidateField(creationFormGroup.get('start'))">Bitte ein Startdatum wählen.</span>
                 </div>
               </fieldset>
               <fieldset>
                 <label class="col-lg-3 control-label">Ende</label>
                 <div class="col-lg-9">
                   <owl-date-time formControlName="end"></owl-date-time>
+                  <span class="text-danger" *ngIf="doValidateField(creationFormGroup.get('end'))">Bitte ein Enddatum wählen.</span>
                 </div>
               </fieldset>
               <fieldset>
                 <label class="col-lg-3 control-label">Anmeldeschluss</label>
                 <div class="col-lg-9">
                   <owl-date-time formControlName="registrationEnd"></owl-date-time>
+                  <span class="text-danger" *ngIf="doValidateField(creationFormGroup.get('registrationEnd'))">Bitte ein Enddatum wählen.</span>
                 </div>
               </fieldset>
               <fieldset>
@@ -116,6 +125,7 @@
                 <div class="col-lg-9">
 
                   <owl-date-time formControlName="registrationEnd"></owl-date-time>
+                  <span class="text-danger" *ngIf="doValidateField(creationFormGroup.get('registrationEnd'))">Bitte ein Enddatum wählen.</span>
                 </div>
               </fieldset>
               <div class="checkbox c-checkbox">
@@ -146,19 +156,23 @@
         <fieldset>
           <label class="col-lg-2 control-label">Beschreibung</label>
           <div class="col-lg-10">
-            <textarea class="form-control note-editor" type="text" formControlName="description" name="seminar_description" rows="10" placeholder="Bitte geben Sie eine detaillierte Beschreibung ein."></textarea>
+            <textarea class="form-control note-editor" type="text" formControlName="description" name="description" rows="10" placeholder="Bitte geben Sie eine detaillierte Beschreibung ein."></textarea>
+
+            <span class="text-danger" *ngIf="doValidateField(creationFormGroup.get('description'))">Bitte eine Beschreibung eingeben.</span>
           </div>
         </fieldset>
           <fieldset>
             <label class="col-lg-2 control-label">Leitung</label>
             <div class="col-lg-10">
               <input class="form-control" type="text" name="lead" formControlName="lead" />
+              <span class="text-danger" *ngIf="doValidateField(creationFormGroup.get('lead'))">Bitte eine Leitung eingeben.</span>
             </div>
           </fieldset>
           <fieldset>
             <label class="col-lg-2 control-label">Zielgruppe</label>
             <div class="col-lg-10">
               <input class="form-control" type="text" name="targetGroup" formControlName="targetGroup" />
+              <span class="text-danger" *ngIf="doValidateField(creationFormGroup.get('targetGroup'))">Bitte eine Zielgruppe eingeben.</span>
             </div>
           </fieldset>
         <fieldset>
@@ -167,12 +181,79 @@
             <div class="input-group">
               <span class="input-group-addon">€</span>
               <input class="form-control" type="text" name="pricePerSeat" formControlName="pricePerSeat" />
+              <span class="text-danger" *ngIf="doValidateField(creationFormGroup.get('pricePerSeat'))">Bitte einen Preis eingeben.</span>
             </div>
           </div>
         </fieldset>
       </div>
     </div>
     </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">Zusätzliche Fragen</div>
+          <div class="panel-body">
+            <div formArrayName="customQuestions" *ngFor="let customQuestion of customQuestions.controls; let i = index">
+              <div [formGroupName]="i">
+                <fieldset>
+                  <label class="col-lg-2 control-label">Fragetitel</label>
+                  <div class="col-lg-10">
+                    <input class="form-control" type="text"  formControlName="questionTitle"  [formControl]="creationFormGroup.controls.customQuestions.controls[i].controls['questionTitle']"  />
+                    <span class="text-danger" *ngIf="doValidateField(creationFormGroup.controls.customQuestions.controls[i].get('questionTitle'))">Bitte geben Sie einen Titel ein</span>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <label class="col-lg-2 control-label">Fragetext</label>
+                  <div class="col-lg-10">
+                    <input class="form-control" type="text"  formControlName="questionText"  [formControl]="creationFormGroup.controls.customQuestions.controls[i].controls['questionText']"  />
+                    <span class="text-danger" *ngIf="doValidateField(creationFormGroup.controls.customQuestions.controls[i].get('questionText'))">Bitte geben Sie einen Fragetext ein</span>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <label class="col-lg-2 control-label">Typ</label>
+                  <div class="col-lg-10">
+                      <select class="form-control" name="type" formControlName="type" [formControl]="creationFormGroup.controls.customQuestions.controls[i].controls['type']" >
+                        <option value="text">Text</option>
+                        <option value="checkbox">CheckBox</option>
+                      </select>
+                      <span class="text-danger" *ngIf="doValidateField(creationFormGroup.controls.customQuestions.controls[i].get('type'))">Bitte einen Typen wählen.</span>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <label class="col-lg-2 control-label">Pflichtfeld</label>
+                  <div class="col-lg-10">
+
+                    <div class="checkbox c-checkbox">
+                      <label>
+                        <input type="checkbox" name="required" formControlName="required" [formControl]="creationFormGroup.controls.customQuestions.controls[i].controls['required']" />
+                        <span class="fa fa-check"></span>Frage ist ein Pflichtfeld</label>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                    <button class="btn btn-labeled btn-warn pull-right" type="button" (click)="onRemoveCustomQuestion(i)" >
+                      <span class="btn-label"><i class="fa fa-minus"></i></span>
+                      Frage entfernen
+                    </button>
+                </fieldset>
+              </div>
+            </div>
+
+
+
+            <button class="btn btn-labeled btn-success pull-right" type="button" (click)="onAddCustomQuestion()" >
+              <span class="btn-label"><i class="fa fa-plus"></i></span>
+              Neuer Frage
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
