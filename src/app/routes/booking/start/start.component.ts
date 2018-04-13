@@ -22,8 +22,6 @@ export class StartComponent implements OnInit {
 
   public sum = 0.00;
 
-  public customQuestionsFromDatabase: any;
-
   step1 = true;
   step2 = false;
   step3 = false;
@@ -47,61 +45,20 @@ export class StartComponent implements OnInit {
             console.log(self.seminar);
 
             self.sum = self.seminar.attributes.pricePerSeat;
-
-            self.parseManager.customQuestionsGetAllBySeminarId(self.seminar)
-              .then(function success(customQuestionsQuery){
-                console.log("CustomQuestionGetAll...");
-                console.log(customQuestionsQuery );
-                  self.customQuestionsFromDatabase = customQuestionsQuery;
-                  for(let cuque in self.customQuestionsFromDatabase){
-                    self.onAddCustomQuestion(self.customQuestionsFromDatabase[cuque].get('required'), self.customQuestionsFromDatabase[cuque]);
-                  }
-                  console.log(self.customQuestionsFromDatabase);
-                },
-                function error(customQuestionQuery, error){
-                  console.log(error);
-                });
-
           },
           function error(seminarQuery, error){
             console.log(error);
           });
-
-
     });
 
     this.bookingFormGroup = this.fb.group({
       'id': null,
-      'seats': this.fb.array([ this.buildSeats() ]),
-      'customQuestions' : this.fb.array([ ])
+      'seats': this.fb.array([ this.buildSeats() ])
     });
 
     console.log(this.bookingFormGroup);
 
 
-  }
-
-  get customQuestions() : FormArray{
-    return <FormArray>this.bookingFormGroup.get("customQuestions");
-  }
-
-  buildCustomQuestion(req: boolean, question:any){
-    if(req){
-      return this.fb.group({
-        "value" : ["", Validators.required],
-        "question" : [question]
-      })
-    }
-    else{
-      return this.fb.group({
-        "value" : [""],
-        "question" : [question]
-      })
-    }
-  }
-
-  onAddCustomQuestion(req:boolean, question:any){
-    this.customQuestions.push(this.buildCustomQuestion(req, question));
   }
 
   get seats() : FormArray{
@@ -113,7 +70,7 @@ export class StartComponent implements OnInit {
       "firstName": ["", Validators.required],
       "lastName": ["", Validators.required],
       "birthday": [""],
-      "email": [""],
+      "email": [""]
     });
   }
 
@@ -132,7 +89,6 @@ export class StartComponent implements OnInit {
   submitForm($ev) {
    console.log("submit");
 
-
     $ev.preventDefault();
     for (let c in this.bookingFormGroup.controls) {
       this.bookingFormGroup.controls[c].markAsTouched();
@@ -143,15 +99,8 @@ export class StartComponent implements OnInit {
         this.bookingFormGroup.controls.seats['controls'][s].controls[sc].markAsTouched();
       }
     }
-    for (let s in this.bookingFormGroup.controls.customQuestions['controls']) {
-      console.log(this.bookingFormGroup.controls.customQuestions['controls'][s]);
-      for (let sc in this.bookingFormGroup.controls.customQuestions['controls'][s].controls) {
-        this.bookingFormGroup.controls.customQuestions['controls'][s].controls[sc].markAsTouched();
-      }
-    }
 
     if (this.bookingFormGroup.valid) {
-      console.log("is Valid!");
 
       this.orderService.createOrder();
       this.orderService.setSeminar(this.seminar);
@@ -166,85 +115,47 @@ export class StartComponent implements OnInit {
           "email": this.bookingFormGroup.controls.seats['controls'][s]['controls'].email.value,
           "price": this.seminar.attributes.pricePerSeat ,
           "order": null,
-          "seminar": this.seminar
+          "seminar": this.seminar,
         }
         this.orderService.addSeat(seat);
         console.log(this.orderService.seats);
       }
       console.log(this.orderService.seats);
 
-      for (let s in this.bookingFormGroup.controls.customQuestions['controls']) {
-        console.log(this.bookingFormGroup.controls.customQuestions['controls'][s]);
-
-        var answer = {
-          "value": this.bookingFormGroup.controls.customQuestions['controls'][s]['controls'].value.value,
-          "order": null,
-          "question": this.bookingFormGroup.controls.customQuestions['controls'][s]['controls'].question.value
-        }
-        this.orderService.addCustomQuestionAnswer(answer);
-      }
-
 
       var self = this;
-      var pOrderObject = null;
+
+      console.log(self.orderService.getOrder());
+      console.log(self.orderService.getSeminar());
+      console.log(self.orderService.seats);
 
       self.parseManager.orderCreate(self.orderService.getOrder(), self.orderService.getSeminar())
         .then(function (pOrder){
-          pOrderObject = pOrder;
-          return self.parseManager.seatsCreateAll(self.orderService.seats, pOrder)
-        })
-        .then(function (){
-          return self.parseManager.customAnswersCreateAll(self.orderService.customQuestionAnswers, pOrderObject)
-        }).then(function(hello) {
-          console.log("everything saved");
-          self.router.navigate(['/booking/overview']);
-        }, function(error) {
-          console.log("Error during saving!");
-          console.log(error);
-        });
 
-         /* for(let se in self.orderService.seats){
+
+          for(let se in self.orderService.seats){
             console.log("doCreate");
             console.log(self.orderService.seats[se]);
             self.parseManager.seatCreate(self.orderService.seats[se], pOrder)
               .then(function(){
+                console.log("Order Created!");
 
-                //self.router.navigate(['/booking/overview']);
-
-              }, function(error, pSeat){
-                console.log(error);
-              });
-          }
-
-          for(let ae in self.orderService.customQuestionAnswers){
-            console.log("doCreate");
-            console.log(self.orderService.customQuestionAnswers[ae]);
-            self.parseManager.createCustomAnswer(self.orderService.customQuestionAnswers[ae], pOrder)
-              .then(function(){
-
-
-                //self.router.navigate(['/booking/overview']);
+                self.router.navigate(['/booking/overview']);
 
               }, function(error, pSeat){
                 console.log(error);
               });
           }
-        }*/
+      }, function(error, pOrder){
+          console.log(error);
+        });
 
 
-    }
-    else{
-
-      console.log("is not Valid!");
     }
   }
 
 
   updateSeatsAmount(){
     this.sum = this.seminar.attributes.pricePerSeat * this.seats.length;
-  }
-
-  doValidateField(field){
-    return field.hasError('required') && (field.dirty || field.touched);
   }
 }

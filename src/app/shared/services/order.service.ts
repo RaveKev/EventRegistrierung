@@ -7,7 +7,6 @@ export class OrderService {
   public order : any;
   public seats = [];
   public seminar : Seminar;
-  public customQuestionAnswers = [];
 
   constructor() { }
 
@@ -39,12 +38,5 @@ export class OrderService {
     return this.seats;
   }
 
-  addCustomQuestionAnswer(answer){
-    this.customQuestionAnswers.push(answer);
-  }
-
-  getCustomQuestionAnswers(){
-    return this.customQuestionAnswers;
-  }
 
 }

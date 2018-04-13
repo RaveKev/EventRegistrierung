@@ -26,6 +26,7 @@ export class ParseManager {
 
   currentUser(){
     var user = Parse.User.current();
+    console.log(user);
     return user;
   }
 
@@ -49,6 +50,7 @@ export class ParseManager {
 
   signup(username: String, password: String, email: String, success: ()=>void)
   {
+    console.log("username: " + username + "  password: " + password);
     var user = new Parse.User();
     user.set("username", username);
     user.set("password", password);
@@ -75,23 +77,31 @@ export class ParseManager {
 
 
   profileGetByUserId(userId: string){
+    console.log("userId: " + userId);
     var query = new Parse.Query("Profile");
     query.equalTo("firstname", "Kevin");
     var qry = query.first();
+    console.log(qry);
     return qry;
   }
 
   profileGetForCurrentUser(){
+    console.log("profileGetForCurrentUser");
     var user = Parse.User.current();
+    console.log(user);
     var query = new Parse.Query("Profile");
     query.equalTo("user", user);
     var qry = query.first();
+    console.log(qry);
     return qry;
   }
 
 
 
   updateProfile(prof: any) {
+    console.log("updateProfile");
+    console.log(prof);
+    console.log(prof.id);
 
     var Profile = Parse.Object.extend("Profile");
     var pProfile = new Profile();
@@ -108,6 +118,8 @@ export class ParseManager {
 
     var ret = pProfile.save();
 
+    console.log("prof.image");
+    console.log(prof.image);
     if (prof.image != null && prof.image != undefined) {
       usr.set("picture", prof.image);
     }
@@ -254,6 +266,8 @@ export class ParseManager {
   seatCreate(seat: any, order: any){
     var Seat = Parse.Object.extend("Seat");
     var pSeat = new Seat();
+    console.log("Creating Seat: ");
+    console.log(seat);
     pSeat.set("firstName", seat.firstName);
     pSeat.set("lastName", seat.lastName);
     pSeat.set("birthDay", seat.birtday);
@@ -266,76 +280,11 @@ export class ParseManager {
     return pSeat.save();
   }
 
-  seatsCreateAll(seats: any, order: any){
-    var seatsToSave = [];
-
-    for(var sIndex in seats){
-      var Seat = Parse.Object.extend("Seat");
-      var pSeat = new Seat();
-      pSeat.set("firstName", seats[sIndex].firstName);
-      pSeat.set("lastName", seats[sIndex].lastName);
-      pSeat.set("birthDay", seats[sIndex].birtday);
-      pSeat.set("email", seats[sIndex].email);
-      pSeat.set("price", seats[sIndex].price);
-      pSeat.set("order", order);
-      pSeat.set("seminar", seats[sIndex].seminar);
-      pSeat.setACL(new Parse.ACL(Parse.User.current()));
-      seatsToSave.push(pSeat);
-    }
-
-    return Parse.Object.saveAll(seatsToSave);
-  }
-
   seatsCreate(seats: any, order: any){
     for(var seat in seats){
       this.seatCreate(seat, order);
     }
   }
 
-
-  customQuestionCreate(customQuestion: any, seminar: any){
-    var CustomQuestion = Parse.Object.extend("CustomQuestion");
-    var pCustomQuestion = new CustomQuestion();
-    pCustomQuestion.set("title",customQuestion.title);
-    pCustomQuestion.set("text",customQuestion.text);
-    pCustomQuestion.set("type",customQuestion.type);
-    pCustomQuestion.set("required",customQuestion.required);
-    pCustomQuestion.set("seminar", seminar);
-
-    return pCustomQuestion.save();
-  }
-
-  customQuestionsGetAllBySeminarId(seminar: any){
-    console.log("customQuestions: ");
-    console.log(seminar);
-    var query = new Parse.Query("CustomQuestion");
-    query.equalTo("seminar", seminar);
-    return query.find();
-  }
-
-  createCustomAnswer(customAnswer: any, order: any){
-    var Answer = Parse.Object.extend("CustomAnswer");
-    var pAnswer = new Answer();
-    pAnswer.set("value", customAnswer.value);
-    pAnswer.set("oder", order);
-    pAnswer.set("question", customAnswer.question);
-
-    return pAnswer.save();
-  }
-
-  customAnswersCreateAll(customAnswers: any, order: any){
-    var answersToSave = [];
-
-    for(var sIndex in customAnswers){
-      var Answer = Parse.Object.extend("CustomAnswer");
-      var pAnswer = new Answer();
-      pAnswer.set("value", customAnswers[sIndex].value);
-      pAnswer.set("oder", order);
-      pAnswer.set("question", customAnswers[sIndex].question);
-      answersToSave.push(pAnswer);
-    }
-
-    return Parse.Object.saveAll(answersToSave);
-  }
 
 }

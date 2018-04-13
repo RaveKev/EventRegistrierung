@@ -61,7 +61,7 @@
                 <fieldset>
                   <div class="form-group col-lg-6">
                     <label>Vorname*</label>
-                    <input class="form-control" type="text"  formControlName="firstName"  />
+                    <input class="form-control" type="text"  formControlName="firstName"  [formControl]="bookingFormGroup.controls.seats.controls[i].controls['firstName']"  />
                     <span class="text-danger" *ngIf="bookingFormGroup.controls.seats.controls[i].get('firstName').hasError('required') && (bookingFormGroup.controls.seats.controls[i].get('firstName').dirty || bookingFormGroup.controls.seats.controls[i].get('firstName').touched)">Bitte geben Sie einen Vornamen ein</span>
                   </div>
                   <div class="form-group col-lg-6">
@@ -101,24 +101,7 @@
         <accordion-group #stepgroup2 [isOpen]="step2" panelClass="b">
           <div accordion-heading>2. Zusatzangaben</div>
           <div id="collapse02">
-
-            <div formArrayName="customQuestions" *ngFor="let cq of customQuestionsFromDatabase; let j = index">
-              <div [formGroupName]="j" class="form-group col-lg-6">
-                <label>{{cq.get('title')}}</label>
-                <div *ngIf="cq.get('type') === 'text'">
-                  <span class="help-block">{{cq.get('text')}}</span>
-                  <input class="form-control" type="text"  formControlName="value"   />
-                </div>
-
-                <div *ngIf="cq.get('type') === 'checkbox'" class="checkbox c-checkbox">
-                  <label>
-                    <input type="checkbox" formControlName="value"   />
-                    <span class="fa fa-check"></span>{{cq.get('text')}}</label>
-                </div>
-
-                <span class="text-danger" *ngIf="doValidateField(bookingFormGroup.controls.customQuestions.controls[j].get('value'))">Pflichtfeld</span>
-              </div>
-            </div>
+            Es gibt keine Zusatzangaben
           </div>
           <div class="pull-left">
             <button class="btn btn-primary" type="button" (click)="stepgroup3.isOpen = true">Weiter</button>
@@ -174,3 +157,7 @@
 
 </div>
 </form>
+
+<br>Form: {{ bookingFormGroup.value | json }}
+
+
