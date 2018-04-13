@@ -6,7 +6,7 @@ export class AlertsService {
 
   public alerts: Array<Object> = [];
 
-  constructor(private logService: LogService) { }
+  constructor(public logService: LogService) { }
 
   public addAlert(message: string, type = "danger", closable = true){
     this.alerts.push({ msg: message, type: type, closable: closable });

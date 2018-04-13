@@ -7,22 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var EventTableComponent = (function () {
-    function EventTableComponent() {
-        this.filterText = "";
+var UsersService = (function () {
+    function UsersService(logService, parseManager) {
+        this.logService = logService;
+        this.parseManager = parseManager;
     }
-    EventTableComponent.prototype.ngOnInit = function () {
+    UsersService.prototype.getUsers = function () {
+        return this.parseManager.usersGet();
     };
-    return EventTableComponent;
+    return UsersService;
 }());
-__decorate([
-    core_1.Input()
-], EventTableComponent.prototype, "events", void 0);
-EventTableComponent = __decorate([
-    core_1.Component({
-        selector: 'app-event-table',
-        templateUrl: 'seminar-table.component.html',
-        styleUrls: ['seminar-table.component.scss']
-    })
-], EventTableComponent);
-exports.EventTableComponent = EventTableComponent;
+UsersService = __decorate([
+    core_1.Injectable()
+], UsersService);
+exports.UsersService = UsersService;

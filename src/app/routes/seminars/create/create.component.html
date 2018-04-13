@@ -5,7 +5,7 @@
 </div>
 
 
-<form [formGroup]="creationFormGroup" class="form-validate panel" role="form" (submit)="onSubmit($seminar)">
+<form [formGroup]="creationFormGroup" class="form-validate panel form-horizontal" role="form" (submit)="onSubmit(sem)">
 <tabset [justified]="true">
   <tab>
     <legend>Allgemeine Informationen</legend>
@@ -45,6 +45,30 @@
                   <div class="col-lg-10">
                     <input class="form-control" type="text" name="seminar_title" formControlName="location" />
                     <span class="help-block">Bitte Adresse eingeben</span>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <label class="col-lg-2 control-label">Veranstalter</label>
+                  <div class="col-lg-10">
+                    <select class="form-control" name="organizer" formControlName="organizer">
+                      <option value="">-</option>
+                      <option *ngFor="let org of organizers; let i = index" [ngValue]="org">{{org.get("displayName")}}</option>
+                    </select>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <label class="col-lg-2 control-label">Max. Teilnehmer</label>
+                  <div class="col-lg-3">
+                    <input class="form-control" type="number" name="seats" formControlName="seats" />
+                    <span class="text-danger" *ngIf="creationFormGroup.controls['seats'].hasError('pattern') && (creationFormGroup.controls['seats'].dirty || creationFormGroup.controls['seats'].touched)">Bitte nur Zahlen eingeben</span>
+                  </div>
+                  <div class="col-lg-1"></div>
+                  <label class="col-lg-3 control-label">Vorgebuchte Plätze</label>
+                  <div class="col-lg-3">
+                    <input class="form-control" type="text" name="preBookedSeats" formControlName="preBookedSeats" />
+                    <span class="text-danger" *ngIf="creationFormGroup.controls['preBookedSeats'].hasError('pattern') && (creationFormGroup.controls['preBookedSeats'].dirty || creationFormGroup.controls['preBookedSeats'].touched)">Bitte nur Zahlen eingeben</span>
                   </div>
                 </fieldset>
 
@@ -104,9 +128,9 @@
         </div>
       </div>
     <div class="row">
-      <div class="col-lg-8">
+      <div class="col-lg-12">
     <div class="panel panel-default">
-    <div class="panel-heading">Allgemeine Informatione</div>
+    <div class="panel-heading">Allgemeine Informationen</div>
     <div class="panel-body">
       <div class="form-group">
         <fieldset>
@@ -122,7 +146,28 @@
         <fieldset>
           <label class="col-lg-2 control-label">Beschreibung</label>
           <div class="col-lg-10">
-            <textarea class="form-control" type="text" formControlName="description" name="seminar_description" rows="10" placeholder="Bitte geben Sie eine detaillierte Beschreibung ein."></textarea>
+            <textarea class="form-control note-editor" type="text" formControlName="description" name="seminar_description" rows="10" placeholder="Bitte geben Sie eine detaillierte Beschreibung ein."></textarea>
+          </div>
+        </fieldset>
+          <fieldset>
+            <label class="col-lg-2 control-label">Leitung</label>
+            <div class="col-lg-10">
+              <input class="form-control" type="text" name="lead" formControlName="lead" />
+            </div>
+          </fieldset>
+          <fieldset>
+            <label class="col-lg-2 control-label">Zielgruppe</label>
+            <div class="col-lg-10">
+              <input class="form-control" type="text" name="targetGroup" formControlName="targetGroup" />
+            </div>
+          </fieldset>
+        <fieldset>
+          <label class="col-lg-2 control-label">Gebühren</label>
+          <div class="col-lg-2">
+            <div class="input-group">
+              <span class="input-group-addon">€</span>
+              <input class="form-control" type="text" name="pricePerSeat" formControlName="pricePerSeat" />
+            </div>
           </div>
         </fieldset>
       </div>
@@ -132,46 +177,12 @@
     </div>
 
   </tab>
-
-  <!--<tab >
-    <ng-template tabHeading>Agenda</ng-template >
-    <div class="panel panel-default" *ngFor="let agenda of agendas; let i = index">
-        <div class="panel-heading">
-            <input class="form-control" id="text" type="text" placeholder="Titel" />
-        </div>
-        <div class="panel-body">
-          <fieldset>
-            <label class="col-sm-2 control-label">Startzeit</label>
-            <div class="col-sm-3">
-              <owl-date-time></owl-date-time>
-            </div>
-          </fieldset>
-          <fieldset>
-            <label class="col-sm-2 control-label">Endzeit</label>
-            <div class="col-sm-3">
-              <owl-date-time></owl-date-time>
-            </div>
-          </fieldset>
-          <fieldset>
-            <label class="col-sm-2 control-label">Anmeldeschluss</label>
-            <div class="col-sm-3">
-              <owl-date-time></owl-date-time>
-            </div>
-          </fieldset>
-          <fieldset>
-            <div class="col-md-12">
-              <textarea  class="form-control" rows="5" placeholder="Beschreibung"></textarea>
-            </div>
-          </fieldset>
-        </div>
-        <button class="btn btn-labeled btn-danger" type="button" (click)="onDeleteAgenda(i)">
-        <span class="btn-label"><i class="fa fa-times"></i>
-   </span>Eintrag löschen</button>
-    </div>
-    <button class="btn btn-labeled btn-info" type="button" (click)="onAddAgenda()">
-        <span class="btn-label"><i class="fa fa-plus"></i>
-   </span>Neuer Eintrag</button>
-  </tab>-->
+<!--
+  <tab >
+    <ng-template tabHeading>Dateien</ng-template >
+    Dateien
+  </tab>
+  -->
 </tabset>
 
   <div class="text-right mt-lg">

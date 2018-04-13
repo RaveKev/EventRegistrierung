@@ -1,0 +1,163 @@
+<div class="content-heading">Buchung für: {{seminar?.attributes.title}}
+  <small>{{seminar?.attributes.shortDescription}}</small>
+</div>
+
+
+<form [formGroup]="bookingFormGroup" class="form-validate panel" role="form" (submit)="submitForm($event)" novalidate="">
+<div class="row">
+  <div class="col-md-3">
+    <div class="panel b">
+      <div class="panel-heading bb">
+        <h4 class="panel-title">Buchung</h4>
+      </div>
+
+      <table class="table">
+        <tbody>
+        <tr>
+          <td>Preis / Person</td>
+          <td>
+            <div class="text-right text-bold">{{seminar?.attributes.pricePerSeat}}€</div>
+          </td>
+        </tr>
+        <tr>
+          <td>Teilnehmer</td>
+          <td>
+            <div class="text-right text-bold">{{seats.length}}</div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="panel-body">
+        <div class="clearfix">
+          <div class="pull-right text-right">
+            <div class="text-bold">{{sum}}€</div>
+            <div class="text-sm">EUR</div>
+          </div>
+          <div class="pull-left text-bold text-dark">Gesamt</div>
+        </div>
+      </div>
+      <div class="panel-body">
+        <p>
+          <button class="btn btn-primary btn-block uppercase" type="submit" [disabled]="!stepgroup3.isOpen">ANMELDEN</button>
+        </p>
+        <small class="text-muted">* Hierfür müssen Sie registriert sein</small>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-9">
+
+
+      <accordion [closeOthers]="true" class="panel-group">
+        <!-- Checkout Method-->
+        <accordion-group #stepgroup1 [isOpen]="step1" panelClass="b">
+          <div accordion-heading>1. Teilnehmer</div>
+          <div id="collapse01">
+
+            <div formArrayName="seats" *ngFor="let seat of seats.controls; let i = index">
+              <div [formGroupName]="i">
+              <!--<div *ngFor="let seat of seats">-->
+                <fieldset>
+                  <div class="form-group col-lg-6">
+                    <label>Vorname*</label>
+                    <input class="form-control" type="text"  formControlName="firstName"  [formControl]="bookingFormGroup.controls.seats.controls[i].controls['firstName']"  />
+                    <span class="text-danger" *ngIf="bookingFormGroup.controls.seats.controls[i].get('firstName').hasError('required') && (bookingFormGroup.controls.seats.controls[i].get('firstName').dirty || bookingFormGroup.controls.seats.controls[i].get('firstName').touched)">Bitte geben Sie einen Vornamen ein</span>
+                  </div>
+                  <div class="form-group col-lg-6">
+                    <label>Nachname*</label>
+                    <input class="form-control" type="text"  formControlName="lastName" />
+                    <span class="text-danger" *ngIf="bookingFormGroup.controls.seats.controls[i].get('lastName').hasError('required') && (bookingFormGroup.controls.seats.controls[i].get('lastName').dirty || bookingFormGroup.controls.seats.controls[i].get('lastName').touched)">Bitte geben Sie einen Nachnamen ein</span>
+                  </div>
+
+                  <div class="form-group col-lg-6">
+                    <label>Geburtsdatum*</label>
+                    <input class="form-control" type="text" formControlName="birthday" />
+                  </div>
+                  <div class="form-group col-lg-6">
+                    <label>Email</label>
+                    <input class="form-control" type="text"   formControlName="email" />
+                  </div>
+                  <div class="form-group col-lg-12">
+                    <button class="btn btn-labeled btn-warn pull-right" type="button" (click)="onRemoveSeat(i)" >
+                      <span class="btn-label"><i class="fa fa-minus"></i></span>
+                      Teilnehmer entfernen
+                    </button>
+                  </div>
+                </fieldset>
+
+
+              </div>
+            </div>
+            <button class="btn btn-labeled btn-success pull-right" type="button" (click)="onAddSeat()" >
+              <span class="btn-label"><i class="fa fa-plus"></i></span>
+              Neuer Teilnehmer
+            </button>
+          </div>
+          <div class="pull-left">
+            <button class="btn btn-primary" type="button" (click)="stepgroup2.isOpen = true">Weiter</button>
+          </div>
+        </accordion-group>
+        <accordion-group #stepgroup2 [isOpen]="step2" panelClass="b">
+          <div accordion-heading>2. Zusatzangaben</div>
+          <div id="collapse02">
+            Es gibt keine Zusatzangaben
+          </div>
+          <div class="pull-left">
+            <button class="btn btn-primary" type="button" (click)="stepgroup3.isOpen = true">Weiter</button>
+          </div>
+        </accordion-group>
+        <accordion-group #stepgroup3 [isOpen]="step3" panelClass="b">
+          <div accordion-heading>3. Zusammenfassung</div>
+
+              <p class="lead bb">Teilnehmer</p>
+          <div id="collapse03">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Vorname</th>
+                  <th>Nachname</th>
+                  <th>eMail</th>
+                  <th>Gebühr</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let seat of seats.controls; let i = index">
+                  <td>{{i+1}}</td>
+                  <td>{{bookingFormGroup.controls.seats.controls[i].controls['firstName'].value}}</td>
+                  <td>{{bookingFormGroup.controls.seats.controls[i].controls['lastName'].value}}</td>
+                  <td>{{bookingFormGroup.controls.seats.controls[i].controls['email'].value}}</td>
+                  <td>{{seminar?.attributes.pricePerSeat}}</td>
+                </tr>
+                <tr>
+                  <td colspan="4">
+                    <div class="text-bold">Gesamt</div>
+                  </td>
+                  <td>
+                    <div class="text-bold">{{sum}}€</div>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+            <div class="panel-body">
+              <p>
+                <button class="btn btn-primary btn-block uppercase" type="submit" [disabled]="!stepgroup3.isOpen">ANMELDEN</button>
+              </p>
+              <small class="text-muted">* Hierfür müssen Sie registriert sein</small>
+            </div>
+          </div>
+        </accordion-group>
+      </accordion>
+
+
+  </div>
+
+</div>
+</form>
+
+<br>Form: {{ bookingFormGroup.value | json }}
+
+

@@ -1,38 +1,34 @@
 <table class="table table-striped table-bordered table-hover">
   <thead>
   <tr>
-    <th checkAll>
-      <div class="checkbox c-checkbox" tooltip="Check All">
-        <label>
-          <input type="checkbox" />
-          <span class="fa fa-check"></span>
-        </label>
-      </div>
+
+    <th>Beschreibung</th>
+    <th>
+      Freie Plätze
     </th>
-    <th>Description</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let seminar of seminars | seminarFilter:filterText | categoryFilter:filterCategory">
-    <td>
-      <div class="checkbox c-checkbox">
-        <label>
-          <input type="checkbox" />
-          <span class="fa fa-check"></span>
-        </label>
-      </div>
-    </td>
+  <tr *ngFor="let seminar of seminars | seminarFilter:filterText | categoryFilter:filterCategory"  [routerLink]="['/seminars/details', seminar?.id]" >
     <td>
       <div class="media-box">
-        <span>{{seminar?.attributes.start | date: 'dd.MM.yyyy H:mm' }} - {{seminar?.attributes.edn | date: 'dd.MM.yyyy H:mm' }}</span>
+        <span>{{seminar?.attributes.start | date: 'dd.MM.yyyy H:mm' }} - {{seminar?.attributes.end | date: 'dd.MM.yyyy H:mm' }}</span>
+        <div class="pull-right badge p-sm bg-warning">{{seminar?.attributes.category?.attributes.name}}</div>
         <a class="pull-left" href="#">
           <img class="media-box-object img-responsive img-rounded thumb64" src="{{seminar?.attributes.image}}" alt="" />
         </a>
         <div class="media-box-body">
-          <div class="pull-right btn btn-info btn-sm"  [routerLink]="['/seminars/details', seminar?.id]">Öffnen</div>
+
           <h4 class="media-box-heading">{{seminar?.attributes.title}}</h4>
-          <small class="text-muted">{{seminar?.attributes.category}}</small>
+          <small class="text-muted">{{seminar?.attributes.location}}</small>
           <p>{{seminar?.attributes.shortDescription}}</p>
+        </div>
+      </div>
+    </td>
+    <td>
+      <div class="panel-body text-center">
+        <div class="easypie-chart" easypiechart [options]="calculatePieOption(seminar)" [percent]="calculatePercentage(seminar)">
+          <span>{{seminar?.attributes.seats - seminar?.attributes.seatsOccupied}} / {{seminar?.attributes.seats}}</span>
         </div>
       </div>
     </td>

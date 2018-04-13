@@ -1,25 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OverviewComponent } from './overview.component';
+import { SignComponent } from './sign.component';
 
-describe('OverviewComponent', () => {
-  let component: OverviewComponent;
-  let fixture: ComponentFixture<OverviewComponent>;
+describe('SignComponent', () => {
+  let component: SignComponent;
+  let fixture: ComponentFixture<SignComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OverviewComponent ]
+      declarations: [ SignComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OverviewComponent);
+    fixture = TestBed.createComponent(SignComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(component).toBeTruthy();
   });
 });

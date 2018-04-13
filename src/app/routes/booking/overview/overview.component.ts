@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ParseManager} from "../../../models/ParseManager";
 import {LogService} from "../../../shared/services/log.service";
-import {Seminar} from "../../../models/seminar-model";
+import {ParseManager} from "../../../models/ParseManager";
 
 @Component({
   selector: 'app-overview',
@@ -10,17 +9,18 @@ import {Seminar} from "../../../models/seminar-model";
 })
 export class OverviewComponent implements OnInit {
 
-  seminars : Seminar[];
+
+  orders = [];
+
+
   constructor(private logService:LogService, private parseManager: ParseManager ) { }
 
   ngOnInit() {
     var self = this;
-    this.parseManager.seminarsGet()
-      .then(function success(seminars){
-        self.seminars = seminars;
+    self.parseManager.ordersGet()
+      .then(function success(orders) {
+        self.orders = orders;
       });
-    this.logService.log("Fertig mit getten:");
-    this.logService.log(this.seminars);
   }
 
 }

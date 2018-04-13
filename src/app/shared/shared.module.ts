@@ -38,6 +38,8 @@ import {LogService} from "./services/log.service";
 import {AlertsComponent} from "./components/alerts/alerts.component";
 import {CategoriesService} from "./services/categories.service";
 import { ImageCropComponent } from './components/image-crop/image-crop.component';
+import {UsersService} from "./services/users.service";
+import {OrderService} from "./services/order.service";
 
 
 // https://angular.io/styleguide#!#04-10
@@ -70,7 +72,9 @@ import { ImageCropComponent } from './components/image-crop/image-crop.component
         ColorsService,
         AlertsService,
         LogService,
-        CategoriesService
+        CategoriesService,
+        UsersService,
+        OrderService
     ],
     declarations: [
         FlotDirective,

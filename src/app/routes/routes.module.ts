@@ -10,6 +10,7 @@ import { routes } from './routes';
 import {AlertsService} from "../shared/services/alerts.service";
 import {UserModule} from "./user/user.module";
 import {SeminarsModule} from "./seminars/seminars.module";
+import {BookingModule} from "./booking/booking.module";
 import {AdministrationModule} from "./administration/administration.module";
 import { SelectModule } from 'ng2-select';
 
@@ -20,9 +21,10 @@ import { SelectModule } from 'ng2-select';
         PagesModule,
         SeminarsModule,
         UserModule,
+        BookingModule,
         AdministrationModule,
     ],
-    declarations: [],
+    declarations: [ ],
     exports: [
         RouterModule
     ],

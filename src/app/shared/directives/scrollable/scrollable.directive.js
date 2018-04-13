@@ -7,22 +7,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var SeminarTableComponent = (function () {
-    function SeminarTableComponent() {
-        this.filterText = "";
+var ScrollableDirective = (function () {
+    function ScrollableDirective(element) {
+        this.element = element;
+        this.defaultHeight = 250;
     }
-    SeminarTableComponent.prototype.ngOnInit = function () {
+    ScrollableDirective.prototype.ngOnInit = function () {
+        $(this.element.nativeElement).slimScroll({
+            height: (this.height || this.defaultHeight)
+        });
     };
-    return SeminarTableComponent;
+    return ScrollableDirective;
 }());
 __decorate([
     core_1.Input()
-], SeminarTableComponent.prototype, "events", void 0);
-SeminarTableComponent = __decorate([
-    core_1.Component({
-        selector: 'app-seminar-table',
-        templateUrl: 'seminar-table.component.html',
-        styleUrls: ['seminar-table.component.scss']
+], ScrollableDirective.prototype, "height", void 0);
+ScrollableDirective = __decorate([
+    core_1.Directive({
+        selector: 'scrollable'
     })
-], SeminarTableComponent);
-exports.SeminarTableComponent = SeminarTableComponent;
+], ScrollableDirective);
+exports.ScrollableDirective = ScrollableDirective;
