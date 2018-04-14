@@ -10,7 +10,7 @@ import {Seminar} from "../../../models/seminar-model";
 })
 export class OverviewComponent implements OnInit {
 
-  seminars : Seminar[];
+  seminars : any[];
   filterText : string;
 
   public items: Array<string> = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
@@ -47,9 +47,11 @@ export class OverviewComponent implements OnInit {
 
     });
 
-    this.parseManager.seminarsGet()
+    this.parseManager.seminarsGetActive( )
       .then(function success(seminars){
         self.seminars = seminars;
+        console.log("SEMINARS");
+        console.log(self.seminars);
       });
   }
 

@@ -8,44 +8,44 @@
                 </a>
             </div>
             <div class="panel-body">
-                <p class="text-center pv">SIGNUP TO GET INSTANT ACCESS.</p>
+                <p class="text-center pv">Konto erstellen</p>
                 <form [formGroup]="valForm" class="form-validate mb-lg" role="form" name="registerForm" novalidate="" (submit)="submitForm($event, valForm.value)">
                     <div class="form-group has-feedback">
-                        <label class="text-muted">Email address</label>
+                        <label class="text-muted">Email</label>
                         <input class="form-control" type="email" name="account_email" placeholder="Enter email" autocomplete="off" formControlName="email" required="" />
                         <span class="fa fa-envelope form-control-feedback text-muted"></span>
-                        <span class="text-danger" *ngIf="valForm.controls['email'].hasError('required') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field is required</span>
-                        <span class="text-danger" *ngIf="valForm.controls['email'].hasError('email') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field must be a valid email address</span>
+                        <span class="text-danger" *ngIf="valForm.controls['email'].hasError('required') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">Pflichtfeld</span>
+                        <span class="text-danger" *ngIf="valForm.controls['email'].hasError('email') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">Gültige eMail-Adresse</span>
                     </div>
                     <div formGroupName="passwordGroup">
                         <div class="form-group has-feedback">
-                            <label class="text-muted">Password</label>
+                            <label class="text-muted">Passwort</label>
                             <input class="form-control" id="id-password" type="password" name="password" formControlName="password" [formControl]="valForm.get('passwordGroup.password')"/>
                             <span class="fa fa-lock form-control-feedback text-muted"></span>
-                            <span class="text-danger" *ngIf="valForm.get('passwordGroup.password').hasError('required') && (valForm.get('passwordGroup.password').dirty || valForm.get('passwordGroup.password').touched)">This field is required</span>
-                            <span class="text-danger" *ngIf="valForm.get('passwordGroup.password').hasError('pattern') && (valForm.get('passwordGroup.password').dirty || valForm.get('passwordGroup.password').touched)">Input should match 'a-zA-Z0-9' and 6-10 length</span>
+                            <span class="text-danger" *ngIf="valForm.get('passwordGroup.password').hasError('required') && (valForm.get('passwordGroup.password').dirty || valForm.get('passwordGroup.password').touched)">Pflichtfeld</span>
+                            <span class="text-danger" *ngIf="valForm.get('passwordGroup.password').hasError('pattern') && (valForm.get('passwordGroup.password').dirty || valForm.get('passwordGroup.password').touched)">Passwort sollte Groß- Kleinschreibung, Zahlen und Sonderzeichen beinhalten und zwischen 6-20 Zeichen lang sein</span>
                         </div>
                         <div class="form-group has-feedback">
-                            <label class="text-muted">Retype Password</label>
+                            <label class="text-muted">Passwortwiederholung</label>
                             <input class="form-control" type="password" name="confirmPassword" formControlName="confirmPassword" [formControl]="valForm.get('passwordGroup.confirmPassword')"/>
                             <span class="fa fa-lock form-control-feedback text-muted"></span>
 
-                            <span class="text-danger" *ngIf="valForm.get('passwordGroup.confirmPassword').hasError('equalTo')">Password does Not match</span>
+                            <span class="text-danger" *ngIf="valForm.get('passwordGroup.confirmPassword').hasError('equalTo')">Passwörter stimmen nicht überein</span>
                         </div>
                     </div>
                     <div class="clearfix">
                         <div class="checkbox c-checkbox pull-left mt0">
                             <label>
                                 <input type="checkbox" required="" name="account_agreed" formControlName="accountagreed" />
-                                <span class="fa fa-check"></span>I agree with the <a href="#">terms</a>
+                                <span class="fa fa-check"></span>Ich stimme den <a href="#">Bestimmungen</a> zu
                             </label>
                         </div>
                     </div>
-                    <span class="text-danger" *ngIf="valForm.controls['accountagreed'].hasError('required') && (valForm.controls['accountagreed'].dirty || valForm.controls['accountagreed'].touched)">You must agree the terms</span>
-                    <button class="btn btn-block btn-primary mt-lg" type="submit">Create account</button>
+                    <span class="text-danger" *ngIf="valForm.controls['accountagreed'].hasError('required') && (valForm.controls['accountagreed'].dirty || valForm.controls['accountagreed'].touched)">Sie müssen zustimmen</span>
+                    <button class="btn btn-block btn-primary mt-lg" type="submit">Konto erstellen</button>
                 </form>
                 <!-- <div class="alert alert-danger text-center"></div> -->
-                <p class="pt-lg text-center">Have an account?</p><a class="btn btn-block btn-default" [routerLink]="'/login'">Signup</a>
+                <p class="pt-lg text-center">Schon ein Konto?</p><a class="btn btn-block btn-default" [routerLink]="'/login'">Einloggen</a>
             </div>
         </div>
         <!-- END panel-->

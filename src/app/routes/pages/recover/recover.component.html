@@ -10,7 +10,7 @@
             <div class="panel-body">
                 <p class="text-center pv">PASSWORD RESET</p>
                 <form [formGroup]="valForm" class="form-validate" role="form" name="recoverForm" novalidate="" (submit)="submitForm($event, valForm.value)">
-                    <p class="text-center">Fill with your mail to receive instructions on how to reset your password.</p>
+                  <p class="text-center">Fill with your mail to receive instructions on how to reset your password.</p>
                     <div class="form-group has-feedback">
                         <label class="text-muted">Email address</label>
                         <input class="form-control" type="email" name="email" placeholder="Enter email" autocomplete="off" formControlName="email"/>
@@ -18,9 +18,11 @@
                         <span class="text-danger" *ngIf="valForm.controls['email'].hasError('required') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field is required</span>
                         <span class="text-danger" *ngIf="valForm.controls['email'].hasError('email') && (valForm.controls['email'].dirty || valForm.controls['email'].touched)">This field must be a valid email address</span>
                     </div>
-                    <button class="btn btn-danger btn-block" type="submit">Reset</button>
+                    <button class="btn btn-danger btn-block mb-lg" type="submit">Reset</button>
                 </form>
+                <p class="pt-lg text-center">Daten zur Hand?</p><a class="btn btn-block btn-primary" [routerLink]="'/login'">Login</a>
             </div>
+
         </div>
         <!-- END panel-->
         <div class="p-lg text-center">

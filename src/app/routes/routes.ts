@@ -7,6 +7,7 @@ import { LockComponent } from './pages/lock/lock.component';
 import { MaintenanceComponent } from './pages/maintenance/maintenance.component';
 import { Error404Component } from './pages/error404/error404.component';
 import { Error500Component } from './pages/error500/error500.component';
+import {AuthGuardService} from "../shared/security/auth-guard.service";
 
 export const routes = [
 
@@ -14,11 +15,12 @@ export const routes = [
         path: '',
         component: LayoutComponent,
         children: [
-          { path: '', redirectTo: 'home', pathMatch: 'full' },
-          { path: 'home', loadChildren: './home/home.module#HomeModule' },
-          { path: 'user', loadChildren: './user/user.module#UserModule'},
-          { path: 'seminars', loadChildren: './seminars/seminars.module#SeminarsModule'},
-          { path: 'administration', loadChildren: './administration/administration.module#AdministrationModule'},
+          { path: '', redirectTo: 'seminars/overview', pathMatch: 'full', canActivate: [AuthGuardService] },
+          { path: 'home', loadChildren: './home/home.module#HomeModule' , canActivate: [AuthGuardService] },
+          { path: 'user', loadChildren: './user/user.module#UserModule', canActivate: [AuthGuardService] },
+          { path: 'seminars', loadChildren: './seminars/seminars.module#SeminarsModule', canActivate: [AuthGuardService] },
+          { path: 'administration', loadChildren: './administration/administration.module#AdministrationModule', canActivate: [AuthGuardService] },
+          { path: 'booking', loadChildren: './booking/booking.module#BookingModule', canActivate: [AuthGuardService] },
         ]
     },
 

@@ -1,9 +1,11 @@
-<div class="content-heading">Suche
+<div class="content-heading">Übersicht
   <small></small>
 </div>
 <div class="row">
   <div class="col-lg-9">
     <div class="form-group mb-xl">
+      <label class="control-label mb">Freitext</label>
+      <br />
       <input class="form-control mb" type="text" [(ngModel)]="filterText" placeholder="Filter"/>
       <div class="clearfix">
         <div class="pull-right">
@@ -11,6 +13,19 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="form-group mb-xl">
+      <label class="control-label mb">Kategorie</label>
+      <br/>
+      <div *ngIf="categories.length > 0">
+        <ng-select [allowClear]="true" [items]="categories" (data)="refreshValue($event)" placeholder="Kategorie filtern"></ng-select>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-lg-9">
     <!-- START panel-->
     <div class="panel panel-default">
       <div class="panel-heading">Suchergebnisse
@@ -20,49 +35,9 @@
         <app-seminar-table  [seminars]="seminars" [filterText]="filterText" [filterCategory]="filterCategory"></app-seminar-table>
       </div>
       <!-- END table-responsive-->
-      <div class="panel-footer">
-        <div class="row">
-          <div class="col-lg-2">
-            <button class="btn btn-sm btn-default">Leeren</button>
-          </div>
-          <div class="col-lg-8"></div>
-          <div class="col-lg-2 text-right">
-            <ul class="pagination pagination-sm">
-              <li class="active"><a href="#">1</a>
-              </li>
-              <li><a href="#">2</a>
-              </li>
-              <li><a href="#">3</a>
-              </li>
-              <li><a href="#">»</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+
     </div>
     <!-- END panel-->
   </div>
-  <div class="col-lg-3">
-    <h3 class="m0 pb-lg">Filter</h3>
-    <div class="form-group mb-xl">
-      <label class="control-label mb">Kategorie</label>
-      <br/>
-      <div *ngIf="categories.length > 0">
-        <ng-select [allowClear]="true" [items]="categories" (data)="refreshValue($event)" placeholder="Kategorie filtern"></ng-select>
-      </div>
-    </div>
-    <div class="form-group mb-xl">
-      <label class="control-label mb">Datum</label>
-      <br/>
-      <p class="input-group">
-        <input class="form-control" type="date" />
-        <span class="input-group-btn">
-                <button class="btn btn-default" type="button">
-                    <em class="fa fa-calendar"></em>
-                </button>
-            </span>
-      </p>
-    </div>
-  </div>
+
 </div>

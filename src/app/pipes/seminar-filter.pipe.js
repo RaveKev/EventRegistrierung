@@ -18,8 +18,8 @@ var SeminarFilterPipe = (function () {
         if (events === undefined)
             return null;
         return events.filter(function (event) {
-            return event.get("title").toLowerCase().includes(term) ||
-                event.get("description").toLowerCase().includes(term);
+            return (event.get("title") && event.get("title").toLowerCase().includes(term)) ||
+                (event.get("description") && event.get("description").toLowerCase().includes(term));
         });
     };
     return SeminarFilterPipe;

@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   valForm: FormGroup;
 
   constructor(public settings: SettingsService, fb: FormBuilder, public parseManager: ParseManager, public router: Router, public alertsService: AlertsService) {
-
+    this.parseManager.logOut();
     this.valForm = fb.group({
       'email': [null, Validators.compose([Validators.required, CustomValidators.email])],
       'password': [null, Validators.required]
@@ -38,9 +38,9 @@ export class LoginComponent implements OnInit {
 
       this.parseManager.logIn(value.email, value.password, function(){
         console.log("User logged in through email");
-        self.router.navigate(['/home']);
+        self.router.navigate(['/seminars/overview']);
       }, function(){
-        self.alertsService.addAlert("Wrong user / pass", "danger", false);
+        self.alertsService.addAlert("Falsche Kombination", "danger", false);
       });
 
     }

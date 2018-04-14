@@ -19,10 +19,10 @@ const seminars = {
       text: 'Übersicht',
       link: '/seminars/overview'
     },
-    {
+   /* {
       text: 'Kalender',
       link: '/seminars/calendar'
-    },
+    },*/
     {
       text: 'Neu',
       link: '/seminars/create'
@@ -56,6 +56,10 @@ const user = {
     {
       text: 'Einstellungen',
       link: '/user/settings'
+    },
+    {
+      text: 'Buchungen',
+      link: '/booking/overview'
     }
   ]
 }

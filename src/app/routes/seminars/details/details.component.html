@@ -5,7 +5,7 @@
 
 
 
-<div class="row">
+<div class="row form-horizontal">
   <div class="col-lg-8">
     <!-- Main panel-->
     <div class="panel b">
@@ -19,12 +19,70 @@
       </div>
       <div class="panel-body bb bt">
         <h4>Beschreibung</h4>
-        <p>
+        <p style="white-space: pre-wrap">
           {{seminar?.attributes.description}}
         </p>
       </div>
 
     </div>
+
+    <div class="panel b">
+      <div class="panel-heading">
+        <h4 class="mv">
+          <span>Details</span>
+        </h4>
+      </div>
+
+      <fieldset>
+        <label class="col-lg-2 control-label">Ort</label>
+        <div class="col-lg-10">
+          <p class="form-control-static">{{seminar?.attributes.location}}</p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label class="col-lg-2 control-label">Veranstalter</label>
+        <div class="col-lg-10">
+          <p class="form-control-static">{{seminar?.attributes.organizer?.attributes.displayName}}</p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label class="col-lg-2 control-label">Leitung</label>
+        <div class="col-lg-10">
+          <p class="form-control-static">{{seminar?.attributes.lead}}</p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label class="col-lg-2 control-label">Zielgruppe</label>
+        <div class="col-lg-10">
+          <p class="form-control-static">{{seminar?.attributes.targetGroup}}</p>
+        </div>
+      </fieldset>
+
+    </div>
+
+
+
+
+    <div class="panel b">
+      <div class="panel-heading">
+        <h4 class="mv">
+          <span>Buchung</span>
+        </h4>
+      </div>
+
+      <fieldset>
+        <label class="col-lg-2 control-label">Gebühr pro Platz</label>
+        <div class="col-lg-10">
+          <p class="form-control-static">{{seminar?.attributes.pricePerSeat}}€</p>
+        </div>
+      </fieldset>
+
+    </div>
+
+
   </div>
 
   <!-- Right side -->
@@ -42,7 +100,7 @@
           <a href="#" (click)="doEditEvent()">Bearbeiten</a>
         </li>
         <li>
-          <a href="#0" (click)="doCanelEvent()">Absagen</a>
+          <a href="#" (click)="doCanelEvent()">Absagen</a>
         </li>
         <li class="divider"></li>
         <li>
@@ -64,6 +122,16 @@
 
     <div class="panel b">
       <table class="table bb">
+
+
+        <div class="panel-body">
+          <ul class="list-inline mv">
+            <li>
+              <div class="badge p-sm bg-warning">{{seminar?.attributes.category?.attributes.name}}</div>
+            </li>
+          </ul>
+        </div>
+
         <tbody>
         <tr>
           <td>
@@ -79,23 +147,32 @@
         </tr>
         <tr>
           <td>
-            <strong>Teilnehmer Max.</strong>
+            <strong>Teilnehmer</strong>
           </td>
-          <td>{{seminar?.attributes.maxParticipants}}</td>
+          <td>{{seminar?.attributes.seatsOccupied}} / {{seminar?.attributes.seats}}</td>
         </tr>
+
         <tr>
           <td>
             <strong>Preis / Person</strong>
           </td>
-          <td>{{seminar?.attributes.pricePerPErson}}</td>
+          <td>{{seminar?.attributes.pricePerPerson}}</td>
         </tr>
         <tr>
           <td>
-            <strong>Registrierungsende</strong>
+            <strong>Anmeldeschluss</strong>
           </td>
           <td>{{seminar?.attributes.registrationEnd | date: 'dd.MM.yyyy H:mm' }}</td>
         </tr>
+
       </table>
     </div>
+
+    <div class="panel b">
+      <table class="table bb">
+        <button class="btn btn-square btn-success btn-block btn-lg" type="button" (click)="doStartBooking()">Buchen</button>
+      </table>
+    </div>
+
   </div>
 </div>

@@ -13,6 +13,7 @@ import { SharedModule } from './shared/shared.module';
 import { RoutesModule } from './routes/routes.module';
 import {ParseManager} from "./models/ParseManager";
 import {AlertsComponent} from "./shared/components/alerts/alerts.component";
+import {AuthGuardService} from "./shared/security/auth-guard.service";
 
 // https://github.com/ocombe/ng2-translate/issues/218
 export function createTranslateLoader(http: HttpClient) {
@@ -38,7 +39,10 @@ export function createTranslateLoader(http: HttpClient) {
             }
         })
     ],
-    providers: [ParseManager],
+    providers: [
+        ParseManager,
+        AuthGuardService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
